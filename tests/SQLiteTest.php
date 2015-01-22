@@ -12,14 +12,14 @@ class SQLiteTest extends \PHPUnit_Framework_TestCase
   public function setUp()
   {
     $this->dbh = new \PDO(self::DSN);
+    $this->assertInstanceOf('PDO', $this->dbh, 'Could not connect to database');
 
     $this->schema_file = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'sqlite.sql';
     $this->schema_file = realpath($this->schema_file);
-
     $this->assertNotFalse($this->schema_file);
 
     $schema_file_exists = file_exists($this->schema_file);
-    $this->assertTrue($schema_file_exists);
+    $this->assertTrue($schema_file_exists, 'Schema file does not exist: ' . $this->schema_file);
   }
 
   public function tearDown()
