@@ -1,5 +1,12 @@
 <?php
 
+/*
+  Autoload function for Open Badges Backend
+  Based on PSR-4 autoloader example from:
+  https://github.com/php-fig/fig-standards
+  With some changes and using portable constants for directory
+  separators instead of assuming '/'
+*/
 spl_autoload_register(function($class) {
   // Assume all classes are under this single namespace
   $prefix = 'UoMCS\\OpenBadges\\Backend\\';
