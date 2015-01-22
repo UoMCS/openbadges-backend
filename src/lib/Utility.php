@@ -6,7 +6,7 @@ class Utility
 {
   const HASH_ALGORITHM = 'sha512';
 
-  public static function identityHash($str, $salt)
+  public static function identityHash($str, $salt = '')
   {
     $str .= $salt;
     $hash = hash(self::HASH_ALGORITHM, $str);
