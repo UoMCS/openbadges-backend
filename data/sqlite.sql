@@ -8,7 +8,7 @@ CREATE TABLE issuers
   email TEXT
 );
 
-CREATE TABLE badges
+CREATE TABLE available_badges
 (
   id INTEGER PRIMARY KEY,
   issuer_id INTEGER NOT NULL,
