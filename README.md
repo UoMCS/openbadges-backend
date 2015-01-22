@@ -15,4 +15,6 @@ Unit tests can be found in the `tests` directory and require PHPUnit. The full
 test suite can be run using the following command in the root directory of the
 project (assuming `phpunit` is installed and in your path):
 
+```
 phpunit --bootstrap src/autoload.php tests/
+```
