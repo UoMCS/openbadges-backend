@@ -6,6 +6,12 @@ class UtilityTest extends \PHPUnit_Framework_TestCase
 {
   const HASH_ALGORITHM = 'sha512';
 
+  public function testConstructor()
+  {
+    $utility = new Utility();
+    $this->assertInstanceOf('UoMCS\OpenBadges\Backend\Utility', $utility);
+  }
+
   public function testIdentityHashSalt()
   {
     $str = 'test';
