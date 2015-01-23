@@ -14,3 +14,8 @@ some optional fields have been omitted.
 Unit tests can be found in the `tests` directory and require PHPUnit. The full
 test suite can be run by executing `phpunit` in the root directory. All
 test configuration is done via the `phpunit.xml` file.
+
+Automatically running a development web server is based on the following blog
+post:
+
+http://tech.vg.no/2013/07/19/using-phps-built-in-web-server-in-your-test-suites/
