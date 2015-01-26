@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../src/autoload.php';
+require_once __DIR__ . '/../src/vendor/autoload.php';
 
 date_default_timezone_set('Europe/London');
 
@@ -23,6 +24,10 @@ echo sprintf(
   WEB_SERVER_PORT,
   $httpd_pid
 ) . PHP_EOL;
+
+// Sleep for 5 seconds to allow web server to start
+echo sprintf('Sleeping for %d seconds to allow web server to start', WEB_SERVER_DELAY) . PHP_EOL;
+sleep(WEB_SERVER_DELAY);
 
 // Kill web server when process ends
 register_shutdown_function(function() use ($httpd_pid) {
