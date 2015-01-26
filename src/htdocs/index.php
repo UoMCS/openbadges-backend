@@ -9,7 +9,10 @@ $app->get('/issuers/{id}', function($id) use ($app) {
 });
 
 $app->get('/badges', function() use ($app) {
+  $body = array();
+  $json_body = json_encode($body);
 
+  return $json_body;
 });
 
 $app->run();
