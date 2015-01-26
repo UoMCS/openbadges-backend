@@ -1,6 +1,12 @@
 {
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.zendframework.com/"
+    }
+  ],
   "require": {
-    "guzzlehttp/guzzle": "~5.0",
+    "zendframework/zend-http": "2.*",
     "silex/silex": "~1.2"
   }
 }
