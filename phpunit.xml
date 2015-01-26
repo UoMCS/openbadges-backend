@@ -9,5 +9,7 @@
     <const name="WEB_SERVER_HOST" value="localhost" />
     <const name="WEB_SERVER_PORT" value="8000" />
     <const name="WEB_SERVER_DOCROOT" value="./src/htdocs" />
+    <const name="WEB_SERVER_BASE_URL" value="http://localhost:8000"/>
+    <const name="WEB_SERVER_DELAY" value="5" />
   </php>
 </phpunit>
