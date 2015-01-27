@@ -14,7 +14,7 @@ class SQLiteTest extends \PHPUnit_Framework_TestCase
     $this->dbh = new \PDO(self::DSN);
     $this->assertInstanceOf('PDO', $this->dbh, 'Could not connect to database');
 
-    $this->schema_file = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'sqlite.sql';
+    $this->schema_file = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'schemas.sql';
     $this->schema_file = realpath($this->schema_file);
     $this->assertNotFalse($this->schema_file);
 
