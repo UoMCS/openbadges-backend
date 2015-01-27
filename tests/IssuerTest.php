@@ -6,8 +6,24 @@ class IssuerTest extends \PHPUnit_Framework_TestCase
 {
   public function testConstructor()
   {
-    $issuer = new Issuer();
+    $data = array(
+      'id' => null,
+      'name' => null,
+      'url' => null,
+      'description' => null,
+      'image' => null,
+      'email' => null
+    );
+
+    $issuer = new Issuer($data);
     $this->assertInstanceOf('UoMCS\OpenBadges\Backend\Issuer', $issuer);
+  }
+
+  public function testGetIssuer()
+  {
+    $id = 1;
+
+    $issuer = Issuer::get($id);
   }
 
   public function testIssuersUrl()
