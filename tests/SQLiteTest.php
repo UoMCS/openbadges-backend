@@ -4,15 +4,13 @@ namespace UoMCS\OpenBadges\Backend;
 
 class SQLiteTest extends \PHPUnit_Framework_TestCase
 {
-  const DSN = 'sqlite::memory:';
-
   protected $dbh = null;
   protected $schema_file = null;
   protected $data_file = null;
 
   public function setUp()
   {
-    $this->dbh = new \PDO(self::DSN);
+    $this->dbh = new SQLite();
     $this->assertInstanceOf('PDO', $this->dbh, 'Could not connect to database');
 
     $sql_directory =  __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR;
@@ -36,7 +34,6 @@ class SQLiteTest extends \PHPUnit_Framework_TestCase
   public function testCreateSchemas()
   {
     $schema = file_get_contents($this->schema_file);
-
     $this->assertNotEmpty($schema);
 
     $affected_rows = $this->dbh->exec($schema);
