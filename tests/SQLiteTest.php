@@ -8,18 +8,24 @@ class SQLiteTest extends \PHPUnit_Framework_TestCase
 
   protected $dbh = null;
   protected $schema_file = null;
+  protected $data_file = null;
 
   public function setUp()
   {
     $this->dbh = new \PDO(self::DSN);
     $this->assertInstanceOf('PDO', $this->dbh, 'Could not connect to database');
 
-    $this->schema_file = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'schemas.sql';
-    $this->schema_file = realpath($this->schema_file);
-    $this->assertNotFalse($this->schema_file);
+    $sql_directory =  __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR;
+    $this->assertTrue(file_exists($sql_directory), 'SQL directory does not exist');
+    $this->assertTrue(is_dir($sql_directory), 'SQL directory is not a directory');
 
-    $schema_file_exists = file_exists($this->schema_file);
-    $this->assertTrue($schema_file_exists, 'Schema file does not exist: ' . $this->schema_file);
+    $this->schema_file = $sql_directory . 'schemas.sql';
+    $this->assertTrue(file_exists($this->schema_file), 'Schema file does not exist: ' . $this->schema_file);
+    $this->assertTrue(is_file($this->schema_file), 'Schema file is not a file: ' .  $this->schema_file);
+
+    $this->data_file = $sql_directory . 'data.sql';
+    $this->assertTrue(file_exists($this->data_file), 'Data file does not exist: ' . $this->data_file);
+    $this->assertTrue(is_file($this->data_file), 'Data file is not a file: ' . $this->data_file);
   }
 
   public function tearDown()
