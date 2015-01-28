@@ -11,20 +11,10 @@ class Issuer
   public $image = null;
   public $email = null;
 
-  public function __construct($data)
-  {
-    $this->id = $data['id'];
-    $this->name = $data['name'];
-    $this->url = $data['url'];
-    $this->description = $data['description'];
-    $this->image = $data['image'];
-    $this->email = $data['email'];
-  }
-
   public static function get($id)
   {
-    $db = new \PDO('sqlite:' . DB_PATH);
-    $db->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
+    $db = new SQLite(DB_PATH);
+    $db->setAttribute(\PDO::FETCH_CLASS, 'Issuer');
 
     $sql = 'SELECT id, name, url, description, image, email FROM issuers WHERE id = :id';
     $sth = $db->prepare($sql);
@@ -34,7 +24,7 @@ class Issuer
     {
       $result = $sth->fetch();
 
-      return new Issuer($result);
+      return $result;
     }
     else
     {
