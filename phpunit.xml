@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="./tests/bootstrap.php">
+<phpunit
+  bootstrap="./tests/bootstrap.php"
+  backupGlobals="false"
+  backupStaticAttributes="false"
+  >
   <testsuites>
     <testsuite name="Main test suite">
       <directory>./tests</directory>
     </testsuite>
   </testsuites>
   <php>
+    <ini name="error_reporting" value="2147483647"/>
     <const name="WEB_SERVER_HOST" value="localhost" />
     <const name="WEB_SERVER_PORT" value="8000" />
     <const name="WEB_SERVER_DOCROOT" value="./src/htdocs" />
     <const name="WEB_SERVER_BASE_URL" value="http://localhost:8000"/>
     <const name="WEB_SERVER_DELAY" value="5" />
+    <const name="DB_DSN" value="sqlite::memory:"/>
   </php>
 </phpunit>
