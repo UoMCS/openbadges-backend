@@ -40,3 +40,8 @@ register_shutdown_function(function() use ($httpd_pid) {
 
   exec('kill ' . $httpd_pid);
 });
+
+// Create and populate database
+$db = \UoMCS\OpenBadges\Backend\SQLite::getInstance();
+$schema = file_get_contents(__DIR__ . '/../data/schemas.sql');
+$db->exec($schema);
