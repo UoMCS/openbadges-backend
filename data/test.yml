@@ -1,0 +1,6 @@
+issuers:
+  -
+    id: 1
+    name: "Test issuer"
+    url: "http://example.org"
+    description: "Description of test issuer"
