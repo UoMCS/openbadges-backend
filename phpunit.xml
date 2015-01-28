@@ -10,6 +10,7 @@
     </testsuite>
   </testsuites>
   <php>
+    <!-- Turn on all errors - using a large integer means all bit fields should be set -->
     <ini name="error_reporting" value="2147483647"/>
     <const name="WEB_SERVER_HOST" value="localhost" />
     <const name="WEB_SERVER_PORT" value="8000" />
