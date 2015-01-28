@@ -2,21 +2,19 @@
 
 namespace UoMCS\OpenBadges\Backend;
 
-class SQLite extends \PDO
+class SQLite
 {
-  public function __construct($db_path = null)
+  private static $instance = null;
+
+  public static function getInstance()
   {
-    $dsn = 'sqlite:';
-
-    if ($db_path)
+    if (self::$instance === null)
     {
-      $dsn .= $db_path;
-    }
-    else
-    {
-      $dsn .= ':memory:';
+      self::$instance = new \PDO(DB_DSN);
+      self::$instance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+      self::$instance->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_OBJ);
     }
 
-    parent::__construct($dsn);
+    return self::$instance;
   }
 }
