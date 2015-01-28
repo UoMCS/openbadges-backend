@@ -2,8 +2,14 @@
 
 namespace UoMCS\OpenBadges\Backend;
 
-class IssuerTest extends \PHPUnit_Framework_TestCase
+class IssuerTest extends DatabaseTestCase
 {
+  public function testIssuerExistsDB()
+  {
+    $issuer = Issuer::get(1);
+    $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\Issuer', $issuer, 'Could not fetch issuer');
+  }
+
   public function testIssuersUrl()
   {
     $url = WEB_SERVER_BASE_URL . '/issuers';

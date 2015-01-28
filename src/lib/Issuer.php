@@ -11,20 +11,35 @@ class Issuer
   public $image = null;
   public $email = null;
 
+  public function __construct($data)
+  {
+    $this->setAll($data);
+  }
+
+  public function setAll($data)
+  {
+    $this->id = isset($data->id) ? $data->id : null;
+    $this->name = isset($data->name) ? $data->name : null;
+    $this->url = isset($data->url) ? $data->url : null;
+    $this->description = isset($data->description) ? $data->description : null;
+    $this->image = isset($data->image) ? $data->image : null;
+    $this->email = isset($data->email) ? $data->email : null;
+  }
+
   public static function get($id)
   {
-    $db = new SQLite(DB_PATH);
-    $db->setAttribute(\PDO::FETCH_CLASS, 'Issuer');
+    $db = SQLite::getInstance();
 
     $sql = 'SELECT id, name, url, description, image, email FROM issuers WHERE id = :id';
     $sth = $db->prepare($sql);
-    $sth->execute(array(':id' => $id));
+    $sth->bindParam(':id', $id, \PDO::PARAM_INT);
+    $sth->execute();
 
-    if ($sth->rowCount() === 1)
+    $result = $sth->fetch();
+
+    if ($result)
     {
-      $result = $sth->fetch();
-
-      return $result;
+      return new Issuer($result);
     }
     else
     {
