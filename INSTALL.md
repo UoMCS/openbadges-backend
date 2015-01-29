@@ -9,14 +9,9 @@ Basic installation can be achieved by simply cloning the Git repository.
 PHP 5.4 or later is required, as the test scripts rely on the built-in web
 server functionality.
 
-### Silex
+### Composer
 
-The Silex framework is used for routing in `src/htdocs/index.php`. It can be
-downloaded from:
-
-http://silex.sensiolabs.org/
-
-The full framework should be extracted to `src/vendor`.
+Composer is required to install the dependencies listed in `src/composer.json`.
 
 ## Configuration
 
