@@ -17,3 +17,8 @@ downloaded from:
 http://silex.sensiolabs.org/
 
 The full framework should be extracted to `src/vendor`.
+
+## Configuration
+
+Open `src/config-sample.php` and edit the options to match your setup, then
+save it as `src/config.php`.
