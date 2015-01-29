@@ -1,3 +1,10 @@
+-- Drop tables in reverse order of creation, otherwise
+-- we may run into foreign key constraints
+DROP TABLE IF EXISTS earned_badges;
+DROP TABLE IF EXISTS earners;
+DROP TABLE IF EXISTS available_badges;
+DROP TABLE IF EXISTS issuers;
+
 CREATE TABLE issuers
 (
   id INTEGER PRIMARY KEY,
