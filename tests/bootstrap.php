@@ -7,11 +7,15 @@ require_once __DIR__ . '/../src/vendor/autoload.php';
 date_default_timezone_set('Europe/London');
 
 $httpd_command = sprintf(
-  'php -S %s:%d -t %s >/dev/null 2>&1 & echo $!',
+  'php -S %s:%d -t %s -d error_reporting=%d %s >/dev/null 2>&1 & echo $!',
   WEB_SERVER_HOST,
   WEB_SERVER_PORT,
-  WEB_SERVER_DOCROOT
+  WEB_SERVER_DOCROOT,
+  ERROR_REPORTING,
+  WEB_SERVER_ROUTER
 );
+
+echo 'Starting server using: ' . $httpd_command . PHP_EOL;
 
 // Execute command and store process ID
 $httpd_output = array();

@@ -33,4 +33,5 @@ $app->get('/badges', function() use ($app) {
   return $json_body;
 });
 
+$app['debug'] = OPEN_BADGES_DEBUG_MODE;
 $app->run();
