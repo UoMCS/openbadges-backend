@@ -26,6 +26,22 @@ class Issuer
     $this->email = isset($data->email) ? $data->email : null;
   }
 
+  public function toJson()
+  {
+    $data = array(
+      'id' => $this->id,
+      'name' => $this->name,
+      'url' => $this->url,
+      'description' => $this->description,
+      'image' => $this->image,
+      'email' => $this->email,
+    );
+
+    $json = json_encode($data);
+
+    return $json;
+  }
+
   public static function get($id)
   {
     $db = SQLite::getInstance();
