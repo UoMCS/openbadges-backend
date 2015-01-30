@@ -9,6 +9,9 @@ In the database schema, we have been stricter than the standard requires in some
 areas, making optional fields NOT NULL and therefore required. In addition,
 some optional fields have been omitted.
 
+This is intended to be a backend which is simple to deploy on existing
+infrastructure, e.g. as an Apache VirtualHost.
+
 ## Unit Tests
 
 Unit tests can be found in the `tests` directory and require PHPUnit. The full
