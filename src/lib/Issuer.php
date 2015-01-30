@@ -2,42 +2,20 @@
 
 namespace UoMCS\OpenBadges\Backend;
 
-class Issuer
+class Issuer extends Base
 {
-  public $id = null;
-  public $name = null;
-  public $url = null;
-  public $description = null;
-  public $image = null;
-  public $email = null;
-
-  public function __construct($data)
-  {
-    $this->setAll($data);
-  }
-
-  public function setAll($data)
-  {
-    $this->id = isset($data->id) ? $data->id : null;
-    $this->name = isset($data->name) ? $data->name : null;
-    $this->url = isset($data->url) ? $data->url : null;
-    $this->description = isset($data->description) ? $data->description : null;
-    $this->image = isset($data->image) ? $data->image : null;
-    $this->email = isset($data->email) ? $data->email : null;
-  }
+  public $data = array(
+    'id' => null,
+    'name' => null,
+    'url' => null,
+    'description' => null,
+    'image' => null,
+    'email' => null,
+  );
 
   public function toJson()
   {
-    $data = array(
-      'id' => $this->id,
-      'name' => $this->name,
-      'url' => $this->url,
-      'description' => $this->description,
-      'image' => $this->image,
-      'email' => $this->email,
-    );
-
-    $json = json_encode($data);
+    $json = json_encode($this->data);
 
     return $json;
   }

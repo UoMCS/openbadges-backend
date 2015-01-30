@@ -2,7 +2,16 @@
 
 namespace UoMCS\OpenBadges\Backend;
 
-class Badge
+class Badge extends Base
 {
+  public $data = array(
+    'id' => null,
+    'issuer_id' => null,
+    'name' => null,
+    'description' => null,
+    'image' => null,
+    'criteria' => null,
+  );
+
   
 }
