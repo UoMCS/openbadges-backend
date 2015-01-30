@@ -7,7 +7,8 @@ abstract class Base
   public $data = array();
 
   protected static $table_name = null;
-  protected static $primary_key = null;
+  protected static $primary_key = 'id';
+  protected static $primary_key_type = \PDO::PARAM_INT;
 
   public function __construct($data = array())
   {
@@ -26,6 +27,31 @@ abstract class Base
       {
         $this->data[$key] = null;
       }
+    }
+  }
+
+  public static function get($id)
+  {
+    $class_name = get_called_class();
+    $primary_key_param = ':' . static::$primary_key;
+
+    $db = SQLite::getInstance();
+
+    $sql = 'SELECT * FROM ' . static::$table_name . ' WHERE ' . static::$primary_key . ' = ' . $primary_key_param;
+
+    $sth = $db->prepare($sql);
+    $sth->bindParam($primary_key_param, $id, static::$primary_key_type);
+    $sth->execute();
+
+    $result = $sth->fetch();
+
+    if ($result)
+    {
+      return new $class_name($result);
+    }
+    else
+    {
+      return null;
     }
   }
 
