@@ -44,7 +44,8 @@ CREATE TABLE earned_badges
   image TEXT,
   evidence TEXT,
   expires TEXT,
-  revoked INTEGER NOT NULL DEFAULT 0,
+  revoked TEXT,
+  revoked_reason TEXT,
   FOREIGN KEY (earner_id) REFERENCES earners(id),
   FOREIGN KEY (badge_id) REFERENCES available_badges(id)
 );

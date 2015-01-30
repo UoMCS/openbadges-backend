@@ -15,5 +15,6 @@ class EarnedBadge extends Base
     'evidence' => null,
     'expires' => null,
     'revoked' => null,
+    'revoked_reason' => null,
   );
 }
