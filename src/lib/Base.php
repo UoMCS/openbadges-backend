@@ -25,4 +25,11 @@ class Base
       }
     }
   }
+
+  public function toJson()
+  {
+    $json = json_encode($this->data);
+
+    return $json;
+  }
 }

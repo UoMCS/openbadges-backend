@@ -12,14 +12,7 @@ class Issuer extends Base
     'image' => null,
     'email' => null,
   );
-
-  public function toJson()
-  {
-    $json = json_encode($this->data);
-
-    return $json;
-  }
-
+  
   public static function get($id)
   {
     $db = SQLite::getInstance();
