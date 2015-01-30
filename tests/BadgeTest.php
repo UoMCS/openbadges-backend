@@ -14,6 +14,12 @@ class BadgeTest extends DatabaseTestCase
     $this->assertEquals(self::BADGE_EXISTS_ID, $badge->data['id']);
   }
 
+  public function testBadgeDoesNotExistDB()
+  {
+    $badge = Badge::get(self::BADGE_DOES_NOT_EXIST_ID);
+    $this->assertNull($badge);
+  }
+
   public function testBadgesUrl()
   {
     $url = WEB_SERVER_BASE_URL . '/badges';
