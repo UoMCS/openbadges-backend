@@ -46,7 +46,7 @@ class Badge extends Base
 
     while ($result = $sth->fetch())
     {
-      $results[] = new Earner($result);
+      $results[] = new Badge($result);
     }
 
     return $results;

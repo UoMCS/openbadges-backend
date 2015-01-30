@@ -13,6 +13,11 @@ class BadgeTest extends DatabaseTestCase
     $badges = Badge::getAll();
     $this->assertInternalType('array', $badges);
     $this->assertCount(self::BADGE_COUNT, $badges);
+
+    foreach ($badges as $badge)
+    {
+      $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\Badge', $badge);
+    }
   }
 
   public function testBadgeExistsDB()
