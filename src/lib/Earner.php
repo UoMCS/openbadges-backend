@@ -10,6 +10,9 @@ class Earner extends Base
     'tyoe' => null,
   );
 
+  protected static $table_name = 'earners';
+  protected static $primary_key = 'id';
+
   public static function get($id)
   {
     $db = SQLite::getInstance();
@@ -29,23 +32,5 @@ class Earner extends Base
     {
       return null;
     }
-  }
-
-  public static function getAll()
-  {
-    $db = SQLite::getInstance();
-
-    $sql = 'SELECT * FROM earners ORDER BY id ASC';
-    $sth = $db->prepare($sql);
-    $sth->execute();
-
-    $results = array();
-
-    while ($result = $sth->fetch())
-    {
-      $results[] = new Earner($result);
-    }
-
-    return $results;
   }
 }

@@ -13,6 +13,9 @@ class Badge extends Base
     'criteria' => null,
   );
 
+  protected static $table_name = 'available_badges';
+  protected static $primary_key = 'id';
+
   public static function get($id)
   {
     $db = SQLite::getInstance();
@@ -32,23 +35,5 @@ class Badge extends Base
     {
       return null;
     }
-  }
-
-  public static function getAll()
-  {
-    $db = SQLite::getInstance();
-
-    $sql = 'SELECT * FROM available_badges ORDER BY id ASC';
-    $sth = $db->prepare($sql);
-    $sth->execute();
-
-    $results = array();
-
-    while ($result = $sth->fetch())
-    {
-      $results[] = new Badge($result);
-    }
-
-    return $results;
   }
 }
