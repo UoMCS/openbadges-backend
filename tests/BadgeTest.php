@@ -6,6 +6,14 @@ class BadgeTest extends DatabaseTestCase
 {
   const BADGE_EXISTS_ID = 1;
   const BADGE_DOES_NOT_EXIST_ID = 99999;
+  const BADGE_COUNT = 1;
+
+  public function testAllEarnersDB()
+  {
+    $badges = Badge::getAll();
+    $this->assertInternalType('array', $badges);
+    $this->assertCount(self::BADGE_COUNT, $badges);
+  }
 
   public function testBadgeExistsDB()
   {

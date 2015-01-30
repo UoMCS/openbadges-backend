@@ -33,4 +33,22 @@ class Badge extends Base
       return null;
     }
   }
+
+  public static function getAll()
+  {
+    $db = SQLite::getInstance();
+
+    $sql = 'SELECT * FROM available_badges ORDER BY id ASC';
+    $sth = $db->prepare($sql);
+    $sth->execute();
+
+    $results = array();
+
+    while ($result = $sth->fetch())
+    {
+      $results[] = new Earner($result);
+    }
+
+    return $results;
+  }
 }
