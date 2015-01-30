@@ -2,7 +2,7 @@
 
 namespace UoMCS\OpenBadges\Backend;
 
-class BadgeTest extends \PHPUnit_Framework_TestCase
+class BadgeTest extends DatabaseTestCase
 {
   public function testConstructor()
   {
