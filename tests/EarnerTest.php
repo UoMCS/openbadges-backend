@@ -9,6 +9,7 @@ class EarnerTest extends DatabaseTestCase
   public function testAllEarnersDB()
   {
     $earners = Earner::getAll();
-    $this->assertEquals(count($earners), 2);
+    $this->assertInternalType('array', $earners);
+    $this->assertCount(2, $earners);
   }
 }
