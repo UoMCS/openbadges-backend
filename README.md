@@ -12,6 +12,9 @@ some optional fields have been omitted.
 This is intended to be a backend which is simple to deploy on existing
 infrastructure, e.g. as an Apache VirtualHost.
 
+The backend assumes that you will be using hosted assertions, as these are
+simpler than signed assertions.
+
 ## Unit Tests
 
 Unit tests can be found in the `tests` directory and require PHPUnit. The full
