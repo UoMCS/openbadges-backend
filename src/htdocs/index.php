@@ -4,6 +4,7 @@ require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../autoload.php';
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use UoMCS\OpenBadges\Backend\Badge;
 use UoMCS\OpenBadges\Backend\Issuer;
 
 $app = new Silex\Application();
@@ -31,6 +32,17 @@ $app->get('/badges', function() use ($app) {
   $json_body = json_encode($body);
 
   return $json_body;
+});
+
+$app->get('/badges/{id}', function($id) use($app) {
+  $badge = Badge::get($id);
+
+  if ($badge === null)
+  {
+    $app->abort(404, 'Badge not found');
+  }
+
+  return $badge->toJson();
 });
 
 $app['debug'] = OPEN_BADGES_DEBUG_MODE;

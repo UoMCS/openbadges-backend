@@ -28,6 +28,40 @@ class BadgeTest extends DatabaseTestCase
     $this->assertNotNull($data, 'Badge->toJson() does not return valid JSON');
   }
 
+  private function getBadgeUrlResponse($id)
+  {
+    $url = WEB_SERVER_BASE_URL . "/badges/$id";
+
+    $client = new \Zend\Http\Client();
+    $client->setUri($url);
+    $response = $client->send();
+
+    return $response;
+  }
+
+  public function testBadgeExistsUrl()
+  {
+    $response = $this->getBadgeUrlResponse(self::BADGE_EXISTS_ID);
+
+    $this->assertTrue($response->isOk(), 'Accessing /badges/' . self::BADGE_EXISTS_ID . ' did not return 2xx code, returned: ' . $response->getStatusCode());
+
+    $body = $response->getBody();
+    $json_body = json_decode($body, true);
+
+    $this->assertNotNull($json_body, 'Body is not valid JSON');
+
+    $badge = Badge::get(self::BADGE_EXISTS_ID);
+
+    $this->assertEquals($badge->toJson(), $body, 'Badge JSON does not match that returned by HTTP request');
+  }
+
+  public function testBadgeDoesNotExistUrl()
+  {
+    $response = $this->getBadgeUrlResponse(self::BADGE_DOES_NOT_EXIST_ID);
+
+    $this->assertTrue($response->isNotFound());
+  }
+
   public function testBadgesUrl()
   {
     $url = WEB_SERVER_BASE_URL . '/badges';
