@@ -4,3 +4,12 @@ issuers:
     name: "Test issuer"
     url: "http://example.org"
     description: "Description of test issuer"
+
+available_badges:
+  -
+    id: 1
+    issuer_id: 1
+    name: "Full attendance"
+    description: "Full attendance award"
+    image: ""
+    criteria: "100% attendance in labs and lectures"

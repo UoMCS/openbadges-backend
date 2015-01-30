@@ -4,10 +4,14 @@ namespace UoMCS\OpenBadges\Backend;
 
 class BadgeTest extends DatabaseTestCase
 {
-  public function testConstructor()
+  const BADGE_EXISTS_ID = 1;
+  const BADGE_DOES_NOT_EXIST_ID = 99999;
+
+  public function testBadgeExistsDB()
   {
-    $badge = new Badge();
-    $this->assertInstanceOf('UoMCS\OpenBadges\Backend\Badge', $badge);
+    $badge = Badge::get(self::BADGE_EXISTS_ID);
+    $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\Badge', $badge, 'Could not fetch badge');
+    $this->assertEquals(self::BADGE_EXISTS_ID, $badge->data['id']);
   }
 
   public function testBadgesUrl()
