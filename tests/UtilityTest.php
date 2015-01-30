@@ -30,4 +30,19 @@ class UtilityTest extends \PHPUnit_Framework_TestCase
 
     $this->assertEquals($hash, Utility::identityHash($str));
   }
+
+  public function testRandomStrings()
+  {
+    $str = Utility::randomString(1);
+    $this->assertInternalType('string', $str);
+    $this->assertEquals(1, strlen($str));
+
+    $str = Utility::randomString(5);
+    $this->assertInternalType('string', $str);
+    $this->assertEquals(5, strlen($str));
+
+    $str = Utility::randomString(20);
+    $this->assertInternalType('string', $str);
+    $this->assertEquals(20, strlen($str));
+  }
 }

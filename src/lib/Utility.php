@@ -14,4 +14,31 @@ class Utility
 
     return $hash;
   }
+
+  public static function randomString($length)
+  {
+    $str = '';
+
+    for ($i = 1; $i <= $length; $i++)
+    {
+      $option = mt_rand(1, 3);
+
+      if ($option == 1)
+      {
+        $ascii = mt_rand(48, 57);
+      }
+      elseif ($option == 2)
+      {
+        $ascii = mt_rand(65, 90);
+      }
+      elseif ($option == 3)
+      {
+        $ascii = mt_rand(97, 122);
+      }
+
+      $str .= chr($ascii);
+    }
+
+    return $str;
+  }
 }
