@@ -20,6 +20,14 @@ class BadgeTest extends DatabaseTestCase
     $this->assertNull($badge);
   }
 
+  public function testToJson()
+  {
+    $badge = Badge::get(self::BADGE_EXISTS_ID);
+    $data = json_decode($badge->toJson());
+
+    $this->assertNotNull($data, 'Badge->toJson() does not return valid JSON');
+  }
+
   public function testBadgesUrl()
   {
     $url = WEB_SERVER_BASE_URL . '/badges';
