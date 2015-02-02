@@ -27,11 +27,18 @@ abstract class Base
     }
   }
 
-  protected function insert()
+  private function getEditableFields()
   {
     $fields = $this->data;
     unset($fields[static::$primary_key]);
     $fields = array_keys($fields);
+
+    return $fields;
+  }
+
+  protected function insert()
+  {
+    $fields = $this->getEditableFields();
 
     $placeholders = array_map(function($field) { return ":$field"; }, $fields);
 
