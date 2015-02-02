@@ -4,9 +4,34 @@ namespace UoMCS\OpenBadges\Backend;
 
 class EarnedBadgeTest extends DatabaseTestCase
 {
-  const EARNED_BADGE_EXISTS_ID = 1;
-  const EARNED_BADGE_DOES_NOT_EXIST_ID = 99999;
+  const EARNED_BADGE_EXISTS_ID = 'HMWi4cx8';
+  const EARNED_BADGE_DOES_NOT_EXIST_ID = 'zzzzzzzz';
   const EARNED_BADGE_COUNT = 2;
+
+  public function testToJson()
+  {
+    $earned_badge = EarnedBadge::get(self::EARNED_BADGE_EXISTS_ID);
+    $data = json_decode($earned_badge->toJson(), true);
+
+    $this->assertArrayHasKey('uid', $data);
+    $this->assertInternalType('string', $data['uid']);
+
+    $this->assertArrayHasKey('recipient', $data);
+    $this->assertInternalType('array', $data['recipient']);
+
+    $this->assertArrayHasKey('badge', $data);
+    $this->assertInternalType('string', $data['badge']);
+
+    $this->assertArrayHasKey('verify', $data);
+    $this->assertInternalType('array', $data['verify']);
+    $this->assertArrayHasKey('type', $data['verify']);
+    $this->assertInternalType('string', $data['verify']['type']);
+    $this->assertArrayHasKey('url', $data['verify']);
+    $this->assertInternalType('string', $data['verify']['url']);
+
+    $this->assertArrayHasKey('issuedOn', $data);
+    $this->assertInternalType('string', $data['issuedOn']);
+  }
 
   public function testAllEarnedBadgesDB()
   {

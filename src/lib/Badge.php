@@ -15,6 +15,11 @@ class Badge extends Base
 
   protected static $table_name = 'available_badges';
 
+  public function getUrl()
+  {
+    return WEB_SERVER_BASE_URL . '/badges/' . $this->data['id'];
+  }
+
   public function toJson()
   {
     $data = $this->data;

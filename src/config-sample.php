@@ -11,3 +11,8 @@ if (!defined('OPEN_BADGES_DEBUG_MODE'))
 }
 
 define('OPEN_BADGES_DB_DSN', 'sqlite:' . OPEN_BADGES_DB_PATH);
+
+if (!defined('WEB_SERVER_BASE_URL'))
+{
+  define('WEB_SERVER_BASE_URL', 'http://localhost:8000');
+}
