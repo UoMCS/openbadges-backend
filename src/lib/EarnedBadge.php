@@ -5,6 +5,7 @@ namespace UoMCS\OpenBadges\Backend;
 class EarnedBadge extends Base
 {
   public $data = array(
+    'id' => null,
     'uid' => null,
     'earner_id' => null,
     'badge_id' => null,
@@ -19,8 +20,26 @@ class EarnedBadge extends Base
   );
 
   protected static $table_name = 'earned_badges';
-  protected static $primary_key = 'uid';
-  protected static $primary_key_type = \PDO::PARAM_STR;
+
+  public static function getIdFromUid($uid)
+  {
+    $db = SQLite::getInstance();
+
+    $sql = 'SELECT id FROM ' . static::$table_name . ' WHERE uid = :uid';
+    $sth = $db->prepare($sql);
+    $sth->execute(array(':uid' => $uid));
+
+    $result = $sth->fetch();
+
+    if ($result)
+    {
+      return $result['id'];
+    }
+    else
+    {
+      return null;
+    }
+  }
 
   public function toJson()
   {

@@ -36,7 +36,8 @@ CREATE TABLE earners
 
 CREATE TABLE earned_badges
 (
-  uid TEXT PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
+  uid TEXT UNIQUE,
   earner_id INTEGER NOT NULL,
   badge_id INTEGER NOT NULL,
   verification_type TEXT NOT NULL,
