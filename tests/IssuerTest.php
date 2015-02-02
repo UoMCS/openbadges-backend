@@ -22,9 +22,19 @@ class IssuerTest extends DatabaseTestCase
   public function testToJson()
   {
     $issuer = Issuer::get(self::ISSUER_EXISTS_ID);
-    $data = json_decode($issuer->toJson());
+    $data = json_decode($issuer->toJson(), true);
 
     $this->assertNotNull($data, 'Issuer->toJson() does not return valid JSON');
+
+    // Check that JSON matches specification
+    $this->assertArrayHasKey('name', $data);
+    $this->assertInternalType('string', $data['name']);
+
+    $this->assertArrayHasKey('url', $data);
+    $this->assertInternalType('string', $data['url']);
+
+    $this->assertArrayHasKey('description', $data);
+    $this->assertInternalType('string', $data['description']);
   }
 
   private function getIssuerUrlResponse($id)

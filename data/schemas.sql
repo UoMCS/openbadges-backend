@@ -29,7 +29,8 @@ CREATE TABLE available_badges
 CREATE TABLE earners
 (
   id INTEGER PRIMARY KEY,
-  hash TEXT NOT NULL UNIQUE,
+  identity TEXT NOT NULL UNIQUE,
+  hashed INTEGER NOT NULL DEFAULT 1,
   type TEXT NOT NULL
 );
 

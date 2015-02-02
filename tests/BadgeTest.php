@@ -36,9 +36,25 @@ class BadgeTest extends DatabaseTestCase
   public function testToJson()
   {
     $badge = Badge::get(self::BADGE_EXISTS_ID);
-    $data = json_decode($badge->toJson());
+    $data = json_decode($badge->toJson(), true);
 
     $this->assertNotNull($data, 'Badge->toJson() does not return valid JSON');
+
+    // Check that JSON matches specification
+    $this->assertArrayHasKey('name', $data);
+    $this->assertInternalType('string', $data['name']);
+
+    $this->assertArrayHasKey('description', $data);
+    $this->assertInternalType('string', $data['description']);
+
+    $this->assertArrayHasKey('image', $data);
+    $this->assertInternalType('string', $data['image']);
+
+    $this->assertArrayHasKey('criteria', $data);
+    $this->assertInternalType('string', $data['criteria']);
+
+    $this->assertArrayHasKey('issuer', $data);
+    $this->assertInternalType('array', $data['issuer']);
   }
 
   private function getBadgeUrlResponse($id)

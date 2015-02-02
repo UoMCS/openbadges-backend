@@ -14,4 +14,15 @@ class Badge extends Base
   );
 
   protected static $table_name = 'available_badges';
+
+  public function toJson()
+  {
+    $data = $this->data;
+
+    $issuer = Issuer::get($this->data['issuer_id']);
+
+    $data['issuer'] = $issuer->data;
+
+    return json_encode($data);
+  }
 }
