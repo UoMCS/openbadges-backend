@@ -33,6 +33,19 @@ class EarnedBadgeTest extends DatabaseTestCase
     $this->assertInternalType('string', $data['issuedOn']);
   }
 
+  public function testEarnedBadgeExistsDB()
+  {
+    $badge = EarnedBadge::get(self::EARNED_BADGE_EXISTS_ID);
+    $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\EarnedBadge', $badge);
+    $this->assertEquals(self::EARNED_BADGE_EXISTS_ID, $badge->data['uid']);
+  }
+
+  public function testEarnedBadgeDoesNotExistDB()
+  {
+    $badge = EarnedBadge::get(self::EARNED_BADGE_DOES_NOT_EXIST_ID);
+    $this->assertNull($badge);
+  }
+
   public function testAllEarnedBadgesDB()
   {
     $badges = EarnedBadge::getAll();
