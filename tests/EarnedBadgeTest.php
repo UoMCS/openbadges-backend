@@ -39,9 +39,6 @@ class EarnedBadgeTest extends DatabaseTestCase
     $this->assertInternalType('array', $badges);
     $this->assertCount(self::EARNED_BADGE_COUNT, $badges);
 
-    foreach ($badges as $badge)
-    {
-      $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\EarnedBadge', $badge);
-    }
+    $this->assertContainsOnlyInstancesOf('UoMCS\\OpenBadges\\Backend\\EarnedBadge', $badges);
   }
 }

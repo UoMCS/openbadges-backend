@@ -29,10 +29,7 @@ class EarnerTest extends DatabaseTestCase
     $this->assertInternalType('array', $earners);
     $this->assertCount(self::EARNER_COUNT, $earners);
 
-    foreach ($earners as $earner)
-    {
-      $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\Earner', $earner);
-    }
+    $this->assertContainsOnlyInstancesOf('UoMCS\\OpenBadges\\Backend\\Earner', $earners);
   }
 
   public function testEarnerExistsDB()
