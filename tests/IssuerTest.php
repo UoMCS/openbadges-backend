@@ -7,6 +7,18 @@ class IssuerTest extends DatabaseTestCase
   const ISSUER_EXISTS_ID = 1;
   const ISSUER_DOES_NOT_EXIST_ID = 99999;
 
+  public function testCreateIssuerDB()
+  {
+    $issuer = new Issuer();
+    $issuer->data['name'] = 'Test Issuer insertion';
+    $issuer->data['url'] = 'http://example.org';
+    $issuer->data['description'] = 'Test description of issuer';
+
+    $issuer_id = $issuer->save();
+
+    $this->assertInternalType('integer', $issuer_id);
+  }
+
   public function testIssuerExistsDB()
   {
     $issuer = Issuer::get(self::ISSUER_EXISTS_ID);

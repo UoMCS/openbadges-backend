@@ -15,6 +15,58 @@ abstract class Base
     $this->setAll($data);
   }
 
+  public function save()
+  {
+    if ($this->data[static::$primary_key] === null)
+    {
+      return $this->insert();
+    }
+    else
+    {
+      return $this->update();
+    }
+  }
+
+  protected function insert()
+  {
+    $fields = $this->data;
+    unset($fields[static::$primary_key]);
+    $fields = array_keys($fields);
+
+    $placeholders = array_map(function($field) { return ":$field"; }, $fields);
+
+    $sql = 'INSERT INTO ' . static::$table_name . ' ';
+    $sql .= '(' . join(', ', $fields) . ')';
+    $sql .= ' VALUES ';
+    $sql .= '(' . join(', ', $placeholders) . ')';
+
+    $parameters = array();
+
+    for ($i = 0; $i < count($fields); $i++)
+    {
+      $parameters[$placeholders[$i]] = $this->data[$fields[$i]];
+    }
+
+    $db = SQLite::getInstance();
+
+    $sth = $db->prepare($sql);
+    $success = $sth->execute($parameters);
+
+    if (!$success)
+    {
+      return null;
+    }
+
+    $last_insert_id = intval($db->lastInsertId());
+
+    return $last_insert_id;
+  }
+
+  protected function update()
+  {
+
+  }
+
   public function setAll($data)
   {
     foreach ($this->data as $key => $value)
