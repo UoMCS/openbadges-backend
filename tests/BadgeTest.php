@@ -20,6 +20,23 @@ class BadgeTest extends DatabaseTestCase
     $this->assertInternalType('integer', $badge->data['id']);
   }
 
+  public function testUpdateBadgeDB()
+  {
+    $badge_name = 'New badge name';
+    $badge_description = 'New badge description';
+
+    $badge_old = Badge::get(self::BADGE_EXISTS_ID);
+    $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\Badge', $badge_old);
+
+    $badge_old->data['name'] = $badge_name;
+    $badge_old->data['description'] = $badge_description;
+    $badge_old->save();
+
+    $badge_new = Badge::get(self::BADGE_EXISTS_ID);
+    $this->assertEquals($badge_description, $badge_new->data['description']);
+    $this->assertEquals($badge_name, $badge_new->data['name']);
+  }
+
   public function testAllEarnersDB()
   {
     $badges = Badge::getAll();
