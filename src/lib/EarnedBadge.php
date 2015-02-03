@@ -23,10 +23,28 @@ class EarnedBadge extends Base
 
   protected static $table_name = 'earned_badges';
 
+  public function isRevoked()
+  {
+    return ($this->data['revoked'] !== null);
+  }
+
+  public function revoke($reason = '', $timestamp = null)
+  {
+    if (empty($timestamp))
+    {
+      $timestamp = time();
+    }
+
+    $this->data['revoked'] = date('Y-m-d H:i:s', $timestamp);
+    $this->data['revoked_reason'] = $reason;
+    $this->save();
+  }
+
   protected function insert()
   {
     do
     {
+      // Try random UIDs until we find one which isn't in use
       $uid = Utility::randomString(self::UID_LENGTH);
       $id = self::getIdFromUid($uid);
     } while ($id != null);

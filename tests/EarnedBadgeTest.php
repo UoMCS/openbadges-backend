@@ -21,6 +21,16 @@ class EarnedBadgeTest extends DatabaseTestCase
     $this->assertInternalType('integer', $badge->data['id']);
   }
 
+  public function testRevokeEarnedBadgeDB()
+  {
+    $badge = EarnedBadge::get(self::EARNED_BADGE_EXISTS_ID);
+    $this->assertFalse($badge->isRevoked());
+
+    $badge->revoke();
+
+    $this->assertTrue($badge->isRevoked());
+  }
+
   public function testToJson()
   {
     $earned_badge = EarnedBadge::get(self::EARNED_BADGE_EXISTS_ID);
