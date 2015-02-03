@@ -8,6 +8,18 @@ class BadgeTest extends DatabaseTestCase
   const BADGE_DOES_NOT_EXIST_ID = 99999;
   const BADGE_COUNT = 1;
 
+  public function testCreateBadgeDB()
+  {
+    $badge = Badge::get(self::BADGE_EXISTS_ID);
+
+    // Set ID to null so we trigger an INSERT
+    $badge->data['id'] = null;
+    $badge->save();
+
+    $this->assertNotNull($badge->data['id']);
+    $this->assertInternalType('integer', $badge->data['id']);
+  }
+
   public function testAllEarnersDB()
   {
     $badges = Badge::getAll();
