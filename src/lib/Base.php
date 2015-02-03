@@ -66,6 +66,8 @@ abstract class Base
 
     $last_insert_id = intval($db->lastInsertId());
 
+    $this->data[static::$primary_key] = $last_insert_id;
+
     return $last_insert_id;
   }
 
