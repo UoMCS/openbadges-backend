@@ -4,6 +4,8 @@ namespace UoMCS\OpenBadges\Backend;
 
 class EarnedBadge extends Base
 {
+  const UID_LENGTH = 8;
+
   public $data = array(
     'id' => null,
     'uid' => null,
@@ -20,6 +22,19 @@ class EarnedBadge extends Base
   );
 
   protected static $table_name = 'earned_badges';
+
+  protected function insert()
+  {
+    do
+    {
+      $uid = Utility::randomString(self::UID_LENGTH);
+      $id = self::getIdFromUid($uid);
+    } while ($id != null);
+
+    $this->data['uid'] = $uid;
+
+    parent::insert();
+  }
 
   public static function getIdFromUid($uid)
   {

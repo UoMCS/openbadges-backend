@@ -9,6 +9,18 @@ class EarnedBadgeTest extends DatabaseTestCase
   const EARNED_BADGE_DOES_NOT_EXIST_ID = 99999;
   const EARNED_BADGE_COUNT = 2;
 
+  public function testCreateEarnedBadgeDB()
+  {
+    $badge = EarnedBadge::get(self::EARNED_BADGE_EXISTS_ID);
+
+    // Set ID to null so we trigger an INSERT
+    $badge->data['id'] = null;
+    $badge->save();
+
+    $this->assertNotNull($badge->data['id']);
+    $this->assertInternalType('integer', $badge->data['id']);
+  }
+
   public function testToJson()
   {
     $earned_badge = EarnedBadge::get(self::EARNED_BADGE_EXISTS_ID);
