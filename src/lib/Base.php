@@ -71,7 +71,31 @@ abstract class Base
 
   protected function update()
   {
+    $fields = $this->getEditableFields();
 
+    $placeholders = array_map(function($field) { return ":$field"; }, $fields);
+
+    $set_options = array_map(function($field) { return "$field = :$field"; }, $fields);
+
+    $sql = 'UPDATE ' . static::$table_name . ' SET ';
+    $sql .= join(', ', $set_options);
+    $sql .= ' WHERE ' . static::$primary_key . ' = :' . static::$primary_key;
+
+    $parameters = array();
+
+    for ($i = 0; $i < count($fields); $i++)
+    {
+      $parameters[$placeholders[$i]] = $this->data[$fields[$i]];
+    }
+
+    $parameters[':' . static::$primary_key] = $this->data[static::$primary_key];
+
+    $db = SQLite::getInstance();
+
+    $sth = $db->prepare($sql);
+    $sth->execute($parameters);
+
+    return null;
   }
 
   public function setAll($data)

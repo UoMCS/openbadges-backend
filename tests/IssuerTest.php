@@ -19,6 +19,23 @@ class IssuerTest extends DatabaseTestCase
     $this->assertInternalType('integer', $issuer_id);
   }
 
+  public function testUpdateIssuerDB()
+  {
+    $issuer_name = 'Test issuer (modified)';
+
+    $issuer_old = Issuer::get(self::ISSUER_EXISTS_ID);
+
+    $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\Issuer', $issuer_old, 'Could not fetch issuer');
+
+    $issuer_old->data['name'] = $issuer_name;
+
+    $issuer_old->save();
+
+    $issuer_new = Issuer::get(self::ISSUER_EXISTS_ID);
+
+    $this->assertEquals($issuer_name, $issuer_new->data['name']);
+  }
+
   public function testIssuerExistsDB()
   {
     $issuer = Issuer::get(self::ISSUER_EXISTS_ID);
