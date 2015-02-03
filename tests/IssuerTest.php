@@ -14,9 +14,10 @@ class IssuerTest extends DatabaseTestCase
     $issuer->data['url'] = 'http://example.org';
     $issuer->data['description'] = 'Test description of issuer';
 
-    $issuer_id = $issuer->save();
+    $issuer->save();
 
-    $this->assertInternalType('integer', $issuer_id);
+    $this->assertNotNull($issuer->data['id']);
+    $this->assertInternalType('integer', $issuer->data['id']);
   }
 
   public function testUpdateIssuerDB()
