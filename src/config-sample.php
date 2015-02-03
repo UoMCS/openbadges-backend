@@ -16,3 +16,5 @@ if (!defined('WEB_SERVER_BASE_URL'))
 {
   define('WEB_SERVER_BASE_URL', 'http://localhost:8000');
 }
+
+define('DEFAULT_EARNER_TYPE', 'email');

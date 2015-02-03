@@ -8,6 +8,18 @@ class EarnerTest extends DatabaseTestCase
   const EARNER_EXISTS_ID = 1;
   const EARNER_DOES_NOT_EXIST_ID = 99999;
 
+  public function testCreateEarnerDB()
+  {
+    $earner = new Earner();
+    $earner->data['identity'] = Utility::identityHash('test@example.org');
+    $earner->data['type'] = DEFAULT_EARNER_TYPE;
+    $earner->data['hashed'] = true;
+
+    $earner->save();
+    $this->assertNotNull($earner->data['id']);
+    $this->assertInternalType('integer', $earner->data['id']);
+  }
+
   public function testToJson()
   {
     $earner = Earner::get(self::EARNER_EXISTS_ID);
