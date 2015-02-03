@@ -20,6 +20,20 @@ class EarnerTest extends DatabaseTestCase
     $this->assertInternalType('integer', $earner->data['id']);
   }
 
+  public function testUpdateEarnerDB()
+  {
+    $earner_identity = Utility::identityHash('test@example.com');
+
+    $earner_old = Earner::get(self::EARNER_EXISTS_ID);
+    $this->assertInstanceof('UoMCS\\OpenBadges\\Backend\\Earner', $earner_old);
+
+    $earner_old->data['identity'] = $earner_identity;
+    $earner_old->save();
+
+    $earner_new = Earner::get(self::EARNER_EXISTS_ID);
+    $this->assertEquals($earner_identity, $earner_new->data['identity']);
+  }
+
   public function testToJson()
   {
     $earner = Earner::get(self::EARNER_EXISTS_ID);
