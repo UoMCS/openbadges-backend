@@ -2,6 +2,13 @@
 
 namespace UoMCS\OpenBadges\Backend;
 
+/**
+ * Base class for all concrete entity classes to inherit from.
+ *
+ * Base class which provides generic methods such as get(), getAll() etc.
+ * for all other entity classes. Some child classes may need to override
+ * methods such as insert() to take account of specific needs.
+ */
 abstract class Base
 {
   public $data = array();
@@ -10,11 +17,23 @@ abstract class Base
   protected static $primary_key = 'id';
   protected static $primary_key_type = \PDO::PARAM_INT;
 
+  /**
+   * Create a new instance of the class.
+   *
+   * @param array $data Optional data to populate the object.
+   */
   public function __construct($data = array())
   {
     $this->setAll($data);
   }
 
+  /**
+   * Get a JSON string representing all the objects.
+   *
+   * Use this function over getAll + toJson.
+   *
+   * @return string JSON representation of all objects as an array.
+   */
   public static function getAllJson()
   {
     $items = static::getAll();
@@ -31,6 +50,11 @@ abstract class Base
     return json_encode($data);
   }
 
+  /**
+   * Save object to persistent storage (usually a database).
+   *
+   * @return integer|null The last inserted ID, or null if not applicable.
+   */
   public function save()
   {
     if ($this->data[static::$primary_key] === null)
@@ -43,6 +67,11 @@ abstract class Base
     }
   }
 
+  /**
+   * Get all the fields which can be edited (everything bar primary key).
+   *
+   * @return array
+   */
   private function getEditableFields()
   {
     $fields = $this->data;
@@ -52,6 +81,14 @@ abstract class Base
     return $fields;
   }
 
+  /**
+   * Insert a new row representing this object.
+   *
+   * This function should only be called by save or via parent::
+   * in a child class.
+   *
+   * @return integer|null ID of inserted row, or null if insert failed.
+   */
   protected function insert()
   {
     $fields = $this->getEditableFields();
@@ -87,6 +124,11 @@ abstract class Base
     return $last_insert_id;
   }
 
+  /**
+   * Update the row representing this object in the database.
+   *
+   * @return null
+   */
   protected function update()
   {
     $fields = $this->getEditableFields();
@@ -116,6 +158,15 @@ abstract class Base
     return null;
   }
 
+  /**
+   * Set all data elements for this object.
+   *
+   * Set all data elements, defaulting to null if a particular
+   * element does not exist in $data.
+   *
+   * @param array $data
+   * @return void
+   */
   public function setAll($data)
   {
     foreach ($this->data as $key => $value)
@@ -131,6 +182,12 @@ abstract class Base
     }
   }
 
+  /**
+   * Get a specific object based on its ID (primary key).
+   *
+   * @param int $id
+   * @return object
+   */
   public static function get($id)
   {
     $class_name = get_called_class();
@@ -156,6 +213,11 @@ abstract class Base
     }
   }
 
+  /**
+   * Get all objects of this type.
+   *
+   * @return array
+   */
   public static function getAll()
   {
     $class_name = get_called_class();
@@ -177,6 +239,13 @@ abstract class Base
     return $results;
   }
 
+  /**
+   * Produce a JSON representation of this object.
+   *
+   * Note: This method will often need to be implemented in child classes.
+   *
+   * @return string
+   */
   public function toJson()
   {
     return json_encode($this->data);
