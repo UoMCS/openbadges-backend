@@ -11,10 +11,7 @@ use UoMCS\OpenBadges\Backend\Issuer;
 $app = new Silex\Application();
 
 $app->get('/issuers', function() use($app) {
-  $body = array();
-  $json_body = json_encode($body);
-
-  return $json_body;
+  return Issuer::getAllJson();
 });
 
 $app->get('/issuers/{id}', function($id) use ($app) {
@@ -29,10 +26,7 @@ $app->get('/issuers/{id}', function($id) use ($app) {
 });
 
 $app->get('/badges', function() use ($app) {
-  $body = array();
-  $json_body = json_encode($body);
-
-  return $json_body;
+  return Badge::getAllJson();
 });
 
 $app->get('/badges/{id}', function($id) use($app) {

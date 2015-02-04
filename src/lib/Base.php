@@ -15,6 +15,22 @@ abstract class Base
     $this->setAll($data);
   }
 
+  public static function getAllJson()
+  {
+    $items = static::getAll();
+    $data = array();
+
+    if (count($items) >= 1)
+    {
+      foreach ($items as $item)
+      {
+        $data[] = json_decode($item->toJson());
+      }
+    }
+
+    return json_encode($data);
+  }
+
   public function save()
   {
     if ($this->data[static::$primary_key] === null)
