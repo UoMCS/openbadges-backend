@@ -2,6 +2,12 @@
 
 namespace UoMCS\OpenBadges\Backend;
 
+/**
+ * Wrapper class for SQLite database connection.
+ *
+ * Implements the Singleton design pattern to ensure that the same
+ * connection is returned in all cases.
+ */
 class SQLite
 {
   private static $instance = null;

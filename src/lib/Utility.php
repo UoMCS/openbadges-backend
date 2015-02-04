@@ -6,6 +6,13 @@ class Utility
 {
   const HASH_ALGORITHM = 'sha512';
 
+  /**
+   * Create a hash of an identity (string + salt).
+   *
+   * @param string $str Identity string.
+   * @param string $salt Salt (optional).
+   * @return string
+   */
   public static function identityHash($str, $salt = '')
   {
     $str .= $salt;
@@ -15,6 +22,12 @@ class Utility
     return $hash;
   }
 
+  /**
+   * Generate a pseudo-random string of given length.
+   *
+   * @param integer $length Length of string to be generated.
+   * @return string
+   */
   public static function randomString($length)
   {
     $str = '';

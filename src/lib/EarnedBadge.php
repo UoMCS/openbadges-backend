@@ -23,11 +23,22 @@ class EarnedBadge extends Base
 
   protected static $table_name = 'earned_badges';
 
+  /**
+   * Check whether am earned badge has been revoked.
+   *
+   * @return bool True if badge has been revoked, false otherwise.
+   */
   public function isRevoked()
   {
     return ($this->data['revoked'] !== null);
   }
 
+  /**
+   * Revoke an earned badge.
+   *
+   * @param string $reason Reason for revoking the badge. Defaults to empty string.
+   * @param integer $timestamp When the badge was revoked. Defaults to current time.
+   */
   public function revoke($reason = '', $timestamp = null)
   {
     if (empty($timestamp))
@@ -54,6 +65,12 @@ class EarnedBadge extends Base
     parent::insert();
   }
 
+  /**
+   * Given the UID of an earned badge, find the ID.
+   *
+   * @param string $uid
+   * @return integer|null ID, or null if no match found.
+   */
   public static function getIdFromUid($uid)
   {
     $db = SQLite::getInstance();
