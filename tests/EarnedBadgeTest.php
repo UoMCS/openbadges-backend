@@ -6,6 +6,7 @@ class EarnedBadgeTest extends DatabaseTestCase
 {
   const EARNED_BADGE_EXISTS_ID = 1;
   const EARNED_BADGE_EXISTS_UID = 'HMWi4cx8';
+  const EARNED_BADGE_DOES_NOT_EXIST_UID = 'zzzzzzzz';
   const EARNED_BADGE_DOES_NOT_EXIST_ID = 99999;
   const EARNED_BADGE_COUNT = 2;
 
@@ -82,5 +83,39 @@ class EarnedBadgeTest extends DatabaseTestCase
     $this->assertCount(self::EARNED_BADGE_COUNT, $badges);
 
     $this->assertContainsOnlyInstancesOf('UoMCS\\OpenBadges\\Backend\\EarnedBadge', $badges);
+  }
+
+  private function getEarnedBadgeUrlResponse($uid)
+  {
+    $url = WEB_SERVER_BASE_URL . '/assertions/' . $uid;
+
+    $client = new \Zend\Http\Client();
+    $client->setUri($url);
+    $response = $client->send();
+
+    return $response;
+  }
+
+  public function testEarnedBadgeExistsUrl()
+  {
+    $response = $this->getEarnedBadgeUrlResponse(self::EARNED_BADGE_EXISTS_UID);
+
+    $this->assertTrue($response->isOk(), 'Accessing /assertions/' . self::EARNED_BADGE_EXISTS_UID . ' did not return 2xx code, returned: ' . $response->getStatusCode());
+
+    $body = $response->getBody();
+    $json_body = json_decode($body, true);
+
+    $this->assertNotNull($json_body, 'Body is not valid JSON');
+
+    $badge = EarnedBadge::get(EarnedBadge::getIdFromUid(self::EARNED_BADGE_EXISTS_UID));
+
+    $this->assertEquals($badge->toJson(), $body, 'Badge JSON does not match that returned by HTTP request');
+  }
+
+  public function testEarnedBadgeDoesNotExistUrl()
+  {
+    $response = $this->getEarnedBadgeUrlResponse(self::EARNED_BADGE_DOES_NOT_EXIST_UID);
+
+    $this->assertTrue($response->isNotFound());
   }
 }
