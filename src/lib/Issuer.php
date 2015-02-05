@@ -14,4 +14,14 @@ class Issuer extends Base
   );
 
   protected static $table_name = 'issuers';
+
+  /**
+   * Get the URL for this badge.
+   *
+   * @return string
+   */
+  public function getUrl()
+  {
+    return WEB_SERVER_BASE_URL . '/issuers/' . $this->data['id'];
+  }
 }

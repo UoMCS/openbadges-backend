@@ -80,7 +80,7 @@ class BadgeTest extends DatabaseTestCase
     $this->assertInternalType('string', $data['criteria']);
 
     $this->assertArrayHasKey('issuer', $data);
-    $this->assertInternalType('array', $data['issuer']);
+    $this->assertInternalType('string', $data['issuer']);
   }
 
   private function getBadgeUrlResponse($id)

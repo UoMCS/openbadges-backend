@@ -31,7 +31,7 @@ class Badge extends Base
 
     $issuer = Issuer::get($this->data['issuer_id']);
 
-    $data['issuer'] = $issuer->data;
+    $data['issuer'] = $issuer->getUrl();
 
     return json_encode($data);
   }
