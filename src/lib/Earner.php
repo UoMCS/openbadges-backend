@@ -17,6 +17,9 @@ class Earner extends Base
   {
     $data = $this->data;
 
+    // Remove unnecessary elements
+    unset($data['id']);
+
     $data['hashed'] = (bool) $data['hashed'];
 
     return json_encode($data, true);
