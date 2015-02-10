@@ -42,6 +42,12 @@ class EarnedBadgeTest extends DatabaseTestCase
 
     $this->assertArrayHasKey('recipient', $data);
     $this->assertInternalType('array', $data['recipient']);
+    $this->assertArrayHasKey('type', $data['recipient']);
+    $this->assertInternalType('string', $data['recipient']['type']);
+    $this->assertArrayHasKey('hashed', $data['recipient']);
+    $this->assertInternalType('boolean', $data['recipient']['hashed']);
+    $this->assertArrayHasKey('identity', $data['recipient']);
+    $this->assertInternalType('string', $data['recipient']['identity']);
 
     $this->assertArrayHasKey('badge', $data);
     $this->assertInternalType('string', $data['badge']);

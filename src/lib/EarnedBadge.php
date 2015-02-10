@@ -96,7 +96,7 @@ class EarnedBadge extends Base
     $data = $this->data;
 
     $recipient = Earner::get($this->data['earner_id']);
-    $data['recipient'] = $recipient->data;
+    $data['recipient'] = json_decode($recipient->toJson());
 
     $badge = Badge::get($this->data['badge_id']);
     $data['badge'] = $badge->getUrl();
