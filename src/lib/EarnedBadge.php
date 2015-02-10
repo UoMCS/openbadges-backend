@@ -91,8 +91,27 @@ class EarnedBadge extends Base
     }
   }
 
+  public function getResponseData()
+  {
+    if ($this->isRevoked())
+    {
+      return array('revoked' => true);
+    }
+
+    $data = $this->data;
+
+    return $data;
+  }
+
   public function toJson()
   {
+    if ($this->isRevoked())
+    {
+      $data = array('revoked' => true);
+
+      return json_encode($data);
+    }
+
     $data = $this->data;
 
     // Remove unnecessary elements

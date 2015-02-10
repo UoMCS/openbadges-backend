@@ -102,6 +102,23 @@ class EarnedBadgeTest extends DatabaseTestCase
     return $response;
   }
 
+  public function testEarnedBadgeRevokedUrl()
+  {
+    $badge = EarnedBadge::get(self::EARNED_BADGE_EXISTS_ID);
+    $badge->revoke();
+
+    $response = $this->getEarnedBadgeUrlResponse(self::EARNED_BADGE_EXISTS_UID);
+
+    $this->assertEquals(410, $response->getStatusCode());
+
+    $body = $response->getBody();
+    $json_body = json_decode($body, true);
+
+    $this->assertNotNull($json_body, 'Body is not valid JSON');
+    $this->assertArrayHasKey('revoked', $json_body);
+    $this->assertInternalType('boolean', $json_body['revoked']);
+  }
+
   public function testEarnedBadgeExistsUrl()
   {
     $response = $this->getEarnedBadgeUrlResponse(self::EARNED_BADGE_EXISTS_UID);

@@ -250,4 +250,14 @@ abstract class Base
   {
     return json_encode($this->data);
   }
+
+  /**
+   * Return the data of this object for use in a HTTP response.
+   *
+   * @return array
+   */
+  public function getResponseData()
+  {
+    return $this->data;
+  }
 }

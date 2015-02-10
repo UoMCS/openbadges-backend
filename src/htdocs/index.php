@@ -47,6 +47,10 @@ $app->get('/assertions/{uid}', function($uid) use ($app) {
   {
     $app->abort(404, 'Badge not found');
   }
+  elseif ($badge->isRevoked())
+  {
+    return $app->json($badge->getResponseData(), 410);
+  }
 
   return $badge->toJson();
 });
