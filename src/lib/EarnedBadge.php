@@ -95,6 +95,24 @@ class EarnedBadge extends Base
   {
     $data = $this->data;
 
+    // Remove unnecessary elements
+    unset($data['id']);
+
+    if (empty($data['image']))
+    {
+      unset($data['image']);
+    }
+
+    if (empty($data['evidence']))
+    {
+      unset($data['evidence']);
+    }
+
+    if (empty($data['expires']))
+    {
+      unset($data['expires']);
+    }
+
     $recipient = Earner::get($this->data['earner_id']);
     $data['recipient'] = json_decode($recipient->toJson());
 
