@@ -24,4 +24,29 @@ class Issuer extends Base
   {
     return WEB_SERVER_BASE_URL . '/issuers/' . $this->data['id'];
   }
+
+  public function getResponseData()
+  {
+    $data = $this->data;
+
+    // Remove unnecessary fields
+    unset($data['id']);
+
+    if (empty($data['description']))
+    {
+      unset($data['description']);
+    }
+
+    if (empty($data['image']))
+    {
+      unset($data['image']);
+    }
+
+    if (empty($data['email']))
+    {
+      unset($data['email']);
+    }
+
+    return $data;
+  }
 }
