@@ -11,7 +11,7 @@ class EarnerTest extends DatabaseTestCase
   public function testCreateEarnerDB()
   {
     $earner = new Earner();
-    $earner->data['identity'] = Utility::identityHash('test@example.org');
+    $earner->data['identity'] = Utility::identityHash('test@example.net');
     $earner->data['type'] = DEFAULT_EARNER_TYPE;
     $earner->data['hashed'] = true;
 
@@ -22,7 +22,7 @@ class EarnerTest extends DatabaseTestCase
 
   public function testUpdateEarnerDB()
   {
-    $earner_identity = Utility::identityHash('test@example.com');
+    $earner_identity = Utility::identityHash('test@example.net');
 
     $earner_old = Earner::get(self::EARNER_EXISTS_ID);
     $this->assertInstanceof('UoMCS\\OpenBadges\\Backend\\Earner', $earner_old);
