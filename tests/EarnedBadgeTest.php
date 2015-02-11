@@ -61,6 +61,11 @@ class EarnedBadgeTest extends DatabaseTestCase
 
     $this->assertArrayHasKey('issuedOn', $data);
     $this->assertInternalType('string', $data['issuedOn']);
+
+    $client = new \Zend\Http\Client();
+    $client->setUri($data['badge']);
+    $response = $client->send();
+    $this->assertTrue($response->isOk());
   }
 
   public function testGetIdFromUid()
