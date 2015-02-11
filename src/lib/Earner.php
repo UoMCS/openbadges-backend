@@ -13,15 +13,12 @@ class Earner extends Base
 
   protected static $table_name = 'earners';
 
-  public function toJson()
+  public function getResponseData()
   {
     $data = $this->data;
 
-    // Remove unnecessary elements
-    unset($data['id']);
-
     $data['hashed'] = (bool) $data['hashed'];
 
-    return json_encode($data, true);
+    return $data;
   }
 }

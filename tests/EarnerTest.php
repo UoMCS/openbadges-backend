@@ -34,10 +34,10 @@ class EarnerTest extends DatabaseTestCase
     $this->assertEquals($earner_identity, $earner_new->data['identity']);
   }
 
-  public function testToJson()
+  public function testResponseData()
   {
     $earner = Earner::get(self::EARNER_EXISTS_ID);
-    $data = json_decode($earner->toJson(), true);
+    $data = $earner->getResponseData();
 
     $this->assertArrayHasKey('identity', $data);
     $this->assertInternalType('string', $data['identity']);

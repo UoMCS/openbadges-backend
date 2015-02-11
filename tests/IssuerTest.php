@@ -49,14 +49,11 @@ class IssuerTest extends DatabaseTestCase
     $this->assertNull($issuer);
   }
 
-  public function testToJson()
+  public function testResponseData()
   {
-    $issuer = Issuer::get(self::ISSUER_EXISTS_ID);
-    $data = json_decode($issuer->toJson(), true);
+    $data = Issuer::get(self::ISSUER_EXISTS_ID)->getResponseData();
 
-    $this->assertNotNull($data, 'Issuer->toJson() does not return valid JSON');
-
-    // Check that JSON matches specification
+    // Check that array matches specification
     $this->assertArrayHasKey('name', $data);
     $this->assertInternalType('string', $data['name']);
 
@@ -85,13 +82,13 @@ class IssuerTest extends DatabaseTestCase
     $this->assertTrue($response->isOk(), 'Accessing /issuers/<id> did not return 2xx code, returned: ' . $response->getStatusCode());
 
     $body = $response->getBody();
-    $json_body = json_decode($body, true);
+    $data = json_decode($body, true);
 
-    $this->assertNotNull($json_body, 'Body is not valid JSON');
+    $this->assertNotNull($data, 'Body is not valid JSON');
 
     $issuer = Issuer::get(self::ISSUER_EXISTS_ID);
 
-    $this->assertEquals($issuer->toJson(), $body, 'Issuer JSON does not match that returned by HTTP request');
+    $this->assertEquals($issuer->getResponseData(), $data, 'Issuer JSON does not match that returned by HTTP request');
   }
 
   public function testIssuerDoesNotExistUrl()
@@ -112,8 +109,8 @@ class IssuerTest extends DatabaseTestCase
     $this->assertTrue($response->isOk(), 'Accessing /issuers did not return 2xx code');
 
     $body = $response->getBody();
-    $json_body = json_decode($body, true);
+    $data = json_decode($body, true);
 
-    $this->assertNotNull($json_body, 'Body is not valid JSON');
+    $this->assertNotNull($data, 'Body is not valid JSON');
   }
 }

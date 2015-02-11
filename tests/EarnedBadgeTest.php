@@ -32,10 +32,10 @@ class EarnedBadgeTest extends DatabaseTestCase
     $this->assertTrue($badge->isRevoked());
   }
 
-  public function testToJson()
+  public function testResponseData()
   {
     $earned_badge = EarnedBadge::get(self::EARNED_BADGE_EXISTS_ID);
-    $data = json_decode($earned_badge->toJson(), true);
+    $data = $earned_badge->getResponseData();
 
     $this->assertArrayHasKey('uid', $data);
     $this->assertInternalType('string', $data['uid']);
@@ -126,13 +126,13 @@ class EarnedBadgeTest extends DatabaseTestCase
     $this->assertTrue($response->isOk(), 'Accessing /assertions/' . self::EARNED_BADGE_EXISTS_UID . ' did not return 2xx code, returned: ' . $response->getStatusCode());
 
     $body = $response->getBody();
-    $json_body = json_decode($body, true);
+    $data = json_decode($body, true);
 
-    $this->assertNotNull($json_body, 'Body is not valid JSON');
+    $this->assertNotNull($data, 'Body is not valid JSON');
 
     $badge = EarnedBadge::get(EarnedBadge::getIdFromUid(self::EARNED_BADGE_EXISTS_UID));
 
-    $this->assertEquals($badge->toJson(), $body, 'Badge JSON does not match that returned by HTTP request');
+    $this->assertEquals($badge->getResponseData(), $data, 'Badge JSON does not match that returned by HTTP request');
   }
 
   public function testEarnedBadgeDoesNotExistUrl()

@@ -28,29 +28,6 @@ abstract class Base
   }
 
   /**
-   * Get a JSON string representing all the objects.
-   *
-   * Use this function over getAll + toJson.
-   *
-   * @return string JSON representation of all objects as an array.
-   */
-  public static function getAllJson()
-  {
-    $items = static::getAll();
-    $data = array();
-
-    if (count($items) >= 1)
-    {
-      foreach ($items as $item)
-      {
-        $data[] = json_decode($item->toJson());
-      }
-    }
-
-    return json_encode($data);
-  }
-
-  /**
    * Save object to persistent storage (usually a database).
    *
    * @return integer|null The last inserted ID, or null if not applicable.
@@ -240,15 +217,24 @@ abstract class Base
   }
 
   /**
-   * Produce a JSON representation of this object.
+   * Get response data for all objects of this type.
    *
-   * Note: This method will often need to be implemented in child classes.
-   *
-   * @return string
+   * @return array
    */
-  public function toJson()
+  public static function getAllResponseData()
   {
-    return json_encode($this->data);
+    $objects = static::getAll();
+    $data = array();
+
+    if (count($objects) >= 1)
+    {
+      foreach ($objects as $object)
+      {
+        $data[] = $object->getResponseData();
+      }
+    }
+
+    return $data;
   }
 
   /**

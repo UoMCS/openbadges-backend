@@ -11,7 +11,7 @@ use UoMCS\OpenBadges\Backend\Issuer;
 $app = new Silex\Application();
 
 $app->get('/issuers', function() use($app) {
-  return Issuer::getAllJson();
+  return $app->json(Issuer::getAllResponseData());
 });
 
 $app->get('/issuers/{id}', function($id) use ($app) {
@@ -22,11 +22,11 @@ $app->get('/issuers/{id}', function($id) use ($app) {
     $app->abort(404, 'Issuer not found');
   }
 
-  return $issuer->toJson();
+  return $app->json($issuer->getResponseData());
 });
 
 $app->get('/badges', function() use ($app) {
-  return Badge::getAllJson();
+  return $app->json(Badge::getAllResponseData());
 });
 
 $app->get('/badges/{id}', function($id) use($app) {
@@ -37,7 +37,7 @@ $app->get('/badges/{id}', function($id) use($app) {
     $app->abort(404, 'Badge not found');
   }
 
-  return $badge->toJson();
+  return $app->json($badge->getResponseData());
 });
 
 $app->get('/assertions/{uid}', function($uid) use ($app) {
@@ -52,7 +52,7 @@ $app->get('/assertions/{uid}', function($uid) use ($app) {
     return $app->json($badge->getResponseData(), 410);
   }
 
-  return $badge->toJson();
+  return $app->json($badge->getResponseData());
 });
 
 $app['debug'] = OPEN_BADGES_DEBUG_MODE;

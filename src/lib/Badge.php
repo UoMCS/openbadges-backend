@@ -25,14 +25,12 @@ class Badge extends Base
     return WEB_SERVER_BASE_URL . '/badges/' . $this->data['id'];
   }
 
-  public function toJson()
+  public function getResponseData()
   {
     $data = $this->data;
 
-    $issuer = Issuer::get($this->data['issuer_id']);
+    $data['issuer'] = Issuer::get($this->data['issuer_id'])->getUrl();
 
-    $data['issuer'] = $issuer->getUrl();
-
-    return json_encode($data);
+    return $data;
   }
 }

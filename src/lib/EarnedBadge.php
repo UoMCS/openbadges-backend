@@ -100,20 +100,6 @@ class EarnedBadge extends Base
 
     $data = $this->data;
 
-    return $data;
-  }
-
-  public function toJson()
-  {
-    if ($this->isRevoked())
-    {
-      $data = array('revoked' => true);
-
-      return json_encode($data);
-    }
-
-    $data = $this->data;
-
     // Remove unnecessary elements
     unset($data['id']);
 
@@ -132,11 +118,8 @@ class EarnedBadge extends Base
       unset($data['expires']);
     }
 
-    $recipient = Earner::get($this->data['earner_id']);
-    $data['recipient'] = json_decode($recipient->toJson());
-
-    $badge = Badge::get($this->data['badge_id']);
-    $data['badge'] = $badge->getUrl();
+    $data['recipient'] = Earner::get($this->data['earner_id'])->getResponseData();
+    $data['badge'] = Badge::get($this->data['badge_id'])->getUrl();
 
     $data['verify'] = array(
       'type' => $this->data['verification_type'],
@@ -145,6 +128,6 @@ class EarnedBadge extends Base
 
     $data['issuedOn'] = $this->data['issued'];
 
-    return json_encode($data);
+    return $data;
   }
 }
