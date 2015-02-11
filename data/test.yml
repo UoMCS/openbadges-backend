@@ -11,7 +11,14 @@ available_badges:
     name: "Full attendance"
     description: "Full attendance award"
     image: ""
-    criteria: "100% attendance in labs and lectures"
+    criteria: "http://example.org"
+  -
+    id: 2
+    issuer_id: 1
+    name: "iOS developer badge"
+    description: "Developed an iOS app"
+    image: ""
+    criteria: "http://example.org"
 
 earners:
   -
@@ -32,6 +39,12 @@ earned_badges:
     badge_id: 1
     verification_type: "hosted"
     issued: "2015-01-01 00:00:01"
+  -
+    uid: "eir9ooPu"
+    earner_id: 1
+    badge_id: 2
+    verification_type: "hosted"
+    issued: "2015-02-01 00:00:01"
   -
     uid: "4AN28Pbn"
     earner_id: 2

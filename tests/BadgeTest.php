@@ -6,7 +6,7 @@ class BadgeTest extends DatabaseTestCase
 {
   const BADGE_EXISTS_ID = 1;
   const BADGE_DOES_NOT_EXIST_ID = 99999;
-  const BADGE_COUNT = 1;
+  const BADGE_COUNT = 2;
 
   public function testCreateBadgeDB()
   {
