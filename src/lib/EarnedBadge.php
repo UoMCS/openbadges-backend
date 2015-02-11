@@ -102,6 +102,8 @@ class EarnedBadge extends Base
 
     // Remove unnecessary elements
     unset($data['id']);
+    unset($data['revoked']);
+    unset($data['revoked_reason']);
 
     if (empty($data['image']))
     {
