@@ -12,7 +12,6 @@ class EarnedBadge extends Base
     'earner_id' => null,
     'badge_id' => null,
     'verification_type' => null,
-    'verification_url' => null,
     'issued' => null,
     'image' => null,
     'evidence' => null,
@@ -91,6 +90,11 @@ class EarnedBadge extends Base
     }
   }
 
+  public function getVerificationUrl()
+  {
+    return WEB_SERVER_BASE_URL . '/assertions/' . $this->data['uid'];
+  }
+
   public function getResponseData()
   {
     if ($this->isRevoked())
@@ -125,7 +129,7 @@ class EarnedBadge extends Base
 
     $data['verify'] = array(
       'type' => $this->data['verification_type'],
-      'url' => $this->data['verification_url'],
+      'url' => $this->getVerificationUrl(),
     );
 
     $data['issuedOn'] = $this->data['issued'];

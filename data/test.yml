@@ -2,7 +2,6 @@ issuers:
   -
     id: 1
     name: "Test issuer"
-    url: "http://localhost:8000"
     description: "Description of test issuer"
 
 available_badges:
@@ -32,12 +31,10 @@ earned_badges:
     earner_id: 1
     badge_id: 1
     verification_type: "hosted"
-    verification_url: "http://localhost:8000/badges/earned/HMWi4cx8"
     issued: "2015-01-01 00:00:01"
   -
     uid: "4AN28Pbn"
     earner_id: 2
     badge_id: 1
     verification_type: "hosted"
-    verification_url: "http://localhost:8000/badges/earned/4AN28Pbn"
     issued: "2015-02-01 05:00:52"

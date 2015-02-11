@@ -11,7 +11,6 @@ class IssuerTest extends DatabaseTestCase
   {
     $issuer = new Issuer();
     $issuer->data['name'] = 'Test Issuer insertion';
-    $issuer->data['url'] = 'http://example.org';
     $issuer->data['description'] = 'Test description of issuer';
 
     $issuer->save();

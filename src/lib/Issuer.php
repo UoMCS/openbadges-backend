@@ -7,7 +7,6 @@ class Issuer extends Base
   public $data = array(
     'id' => null,
     'name' => null,
-    'url' => null,
     'description' => null,
     'image' => null,
     'email' => null,
@@ -46,6 +45,8 @@ class Issuer extends Base
     {
       unset($data['email']);
     }
+
+    $data['url'] = $this->getUrl();
 
     return $data;
   }

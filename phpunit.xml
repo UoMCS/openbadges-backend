@@ -14,9 +14,9 @@
     <ini name="error_reporting" value="2147483647"/>
     <const name="ERROR_REPORTING" value="2147483647"/>
     <const name="WEB_SERVER_HOST" value="localhost" />
-    <const name="WEB_SERVER_PORT" value="8000" />
+    <const name="WEB_SERVER_PORT" value="8080" />
     <const name="WEB_SERVER_DOCROOT" value="./src/htdocs" />
-    <const name="WEB_SERVER_BASE_URL" value="http://localhost:8000"/>
+    <const name="WEB_SERVER_BASE_URL" value="http://localhost:8080"/>
     <const name="WEB_SERVER_DELAY" value="5" />
     <const name="WEB_SERVER_ROUTER" value="./src/router.php"/>
     <const name="OPEN_BADGES_DB_PATH" value="./data/test.db"/>
