@@ -78,7 +78,6 @@ class EarnedBadgeTest extends DatabaseTestCase
   {
     $badges = EarnedBadge::getAllFromEmail('test@example.org');
     $this->assertInternalType('array', $badges);
-    $this->assertGreaterThanOrEqual(0, count($badges));
     $this->assertContainsOnlyInstancesOf('UoMCS\\OpenBadges\\Backend\\EarnedBadge', $badges);
   }
 
