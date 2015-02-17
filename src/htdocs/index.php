@@ -53,7 +53,8 @@ $app->get('/assertions/{uid}', function($uid) use ($app) {
   }
 
   return $app->json($badge->getResponseData());
-});
+})
+->assert('uid', '[0-9a-zA-Z]+');
 
 $app['debug'] = OPEN_BADGES_DEBUG_MODE;
 $app->run();
