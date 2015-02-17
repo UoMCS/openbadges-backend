@@ -23,6 +23,38 @@ class EarnedBadge extends Base
   protected static $table_name = 'earned_badges';
 
   /**
+   * Fetch all earned badges for a given email address.
+   *
+   * @param string Email address
+   * @return array|null Array of badges, or null if earner does not exist
+   */
+  public static function getAllFromEmail($email)
+  {
+    $earner_id = Earner::getIdFromEmail($email);
+
+    if ($earner_id === null)
+    {
+      return null;
+    }
+
+    $db = SQLite::getInstance();
+
+    $sql = 'SELECT * FROM ' . static::$table_name . ' WHERE earner_id = :earner_id';
+
+    $sth = $db->prepare($sql);
+    $sth->execute(array(':earner_id' => $earner_id));
+
+    $results = array();
+
+    while ($result = $sth->fetch())
+    {
+      $results[] = new EarnedBadge($result);
+    }
+
+    return $results;
+  }
+
+  /**
    * Check whether am earned badge has been revoked.
    *
    * @return bool True if badge has been revoked, false otherwise.

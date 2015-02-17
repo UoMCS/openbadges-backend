@@ -74,6 +74,20 @@ class EarnedBadgeTest extends DatabaseTestCase
     $this->assertEquals(self::EARNED_BADGE_EXISTS_ID, $id);
   }
 
+  public function testEmailExistsDB()
+  {
+    $badges = EarnedBadge::getAllFromEmail('test@example.org');
+    $this->assertInternalType('array', $badges);
+    $this->assertGreaterThanOrEqual(0, count($badges));
+    $this->assertContainsOnlyInstancesOf('UoMCS\\OpenBadges\\Backend\\EarnedBadge', $badges);
+  }
+
+  public function testEmailDoestNotExistDB()
+  {
+    $badges = EarnedBadge::getAllFromEmail('test@example.net');
+    $this->assertNull($badges);
+  }
+
   public function testEarnedBadgeExistsDB()
   {
     $badge = EarnedBadge::get(self::EARNED_BADGE_EXISTS_ID);
