@@ -74,6 +74,32 @@ class EarnedBadgeTest extends DatabaseTestCase
     $this->assertEquals(self::EARNED_BADGE_EXISTS_ID, $id);
   }
 
+  private function getEmailUrlResponse($email)
+  {
+    $url = WEB_SERVER_BASE_URL . '/assertions/' . $email;
+
+    $client = new \Zend\Http\Client();
+    $client->setUri($url);
+    $response = $client->send();
+
+    return $response;
+  }
+
+  public function testEmailExistsUrl()
+  {
+    $email = 'test@example.org';
+    $response = $this->getEmailUrlResponse($email);
+
+    $this->assertTrue($response->isOk(), 'Accessing /assertions/' . $email . ' did not return 2xx code, returned : ' . $response->getStatusCode());
+
+    $body = $response->getBody();
+    $data = json_decode($body, true);
+
+    $this->assertNotNull($data, 'Body is not valid JSON');
+
+
+  }
+
   public function testEmailExistsDB()
   {
     $badges = EarnedBadge::getAllFromEmail('test@example.org');

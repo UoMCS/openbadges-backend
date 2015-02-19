@@ -56,5 +56,28 @@ $app->get('/assertions/{uid}', function($uid) use ($app) {
 })
 ->assert('uid', '[0-9a-zA-Z]+');
 
+$app->get('/assertions/{email}', function($email) use ($app) {
+  // We assume if something follows /assertions and is not a UID,
+  // it must be an email.
+  $badges = EarnedBadge::getAllFromEmail($email);
+
+  if ($badges === null)
+  {
+    $app->abort(404);
+  }
+
+  $response_data = array();
+
+  if (count($badges) >= 1)
+  {
+    foreach ($badges as $badge)
+    {
+      $response_data[] = $badge->getResponseData();
+    }
+  }
+
+  return $app->json($response_data);
+});
+
 $app['debug'] = OPEN_BADGES_DEBUG_MODE;
 $app->run();
