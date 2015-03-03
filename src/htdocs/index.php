@@ -7,6 +7,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use UoMCS\OpenBadges\Backend\Badge;
 use UoMCS\OpenBadges\Backend\EarnedBadge;
 use UoMCS\OpenBadges\Backend\Issuer;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 $app = new Silex\Application();
 
@@ -23,6 +25,25 @@ $app->get('/issuers/{id}', function($id) use ($app) {
   }
 
   return $app->json($issuer->getResponseData());
+});
+
+$app->post('/badges', function(Request $request) use ($app) {
+  $body = $request->getContent();
+  $data = json_decode($body, true);
+
+  if ($data === null)
+  {
+    $app->abort(400, 'Request body not valid JSON');
+  }
+
+  $badge = new Badge($data);
+  $badge->save();
+
+  $headers = array(
+    'Location' => $badge->getUrl(),
+  );
+
+  return new Response('Badge created', 201, $headers);
 });
 
 $app->get('/badges', function() use ($app) {

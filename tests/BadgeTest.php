@@ -8,6 +8,44 @@ class BadgeTest extends DatabaseTestCase
   const BADGE_DOES_NOT_EXIST_ID = 99999;
   const BADGE_COUNT = 2;
 
+  public function testCreateBadgeUrl()
+  {
+    $badge = Badge::get(self::BADGE_EXISTS_ID);
+    $badge->data['id'] = null;
+    $body = $badge->getResponseData();
+    $json = json_encode($body);
+
+    $this->assertNotFalse($json);
+
+    $url = WEB_SERVER_BASE_URL . '/badges';
+    $client = new \Zend\Http\Client();
+    $client->setUri($url);
+    $client->setMethod('POST');
+    $client->setRawBody($json);
+    $client->setEncType('application/json');
+    $response = $client->send();
+
+    $this->assertEquals(201, $response->getStatusCode());
+
+    $headers = $response->getHeaders();
+    $location_header = $headers->get('Location');
+
+    $this->assertNotFalse($location_header, 'No Location: header specified');
+
+    $location_value = $location_header->getFieldValue();
+    $location_pattern = '#^' . WEB_SERVER_BASE_URL . '/badges/[0-9]+$#';
+
+    $this->assertEquals(1, preg_match($location_pattern, $location_value), 'Location header does not match regex');
+
+    // Check that created badge exists by attempting to fetch it
+    $url = $location_value;
+    $client = new \Zend\Http\Client();
+    $client->setUri($url);
+    $response = $client->send();
+
+    $this->assertTrue($response->isOk(), 'Could not access created badge at URL: ' . $url);
+  }
+
   public function testCreateBadgeDB()
   {
     $badge = Badge::get(self::BADGE_EXISTS_ID);
