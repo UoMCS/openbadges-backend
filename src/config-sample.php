@@ -18,3 +18,5 @@ if (!defined('WEB_SERVER_BASE_URL'))
 }
 
 define('DEFAULT_EARNER_TYPE', 'email');
+define('DEFAULT_VERIFICATION_TYPE', 'hosted');
+define('TIMESTAMP_FORMAT', 'Y-m-d H:i:s');
