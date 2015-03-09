@@ -10,14 +10,12 @@ available_badges:
     issuer_id: 1
     name: "Full attendance"
     description: "Full attendance award"
-    image: ""
     criteria: "http://example.org"
   -
     id: 2
     issuer_id: 1
     name: "iOS developer badge"
     description: "Developed an iOS app"
-    image: ""
     criteria: "http://example.org"
 
 earners:

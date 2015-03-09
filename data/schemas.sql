@@ -20,7 +20,7 @@ CREATE TABLE available_badges
   issuer_id INTEGER NOT NULL,
   name TEXT NOT NULL,
   description TEXT NOT NULL,
-  image TEXT NOT NULL,
+  image BLOB,
   criteria TEXT NOT NULL,
   FOREIGN KEY (issuer_id) REFERENCES issuers(id)
 );
