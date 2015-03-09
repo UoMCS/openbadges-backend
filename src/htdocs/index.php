@@ -60,7 +60,8 @@ $app->get('/badges/{id}', function($id) use($app) {
   }
 
   return $app->json($badge->getResponseData());
-});
+})
+->assert('id', '[0-9]+');
 
 $app->get('/assertions/{uid}', function($uid) use ($app) {
   $badge = EarnedBadge::get(EarnedBadge::getIdFromUid($uid));
