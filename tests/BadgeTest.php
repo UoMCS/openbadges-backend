@@ -7,12 +7,15 @@ class BadgeTest extends DatabaseTestCase
   const BADGE_EXISTS_ID = 1;
   const BADGE_DOES_NOT_EXIST_ID = 99999;
   const BADGE_COUNT = 2;
+  const BADGE_IMAGE_PATH = '/../data/sample-badge.png';
 
   public function testCreateBadgeUrl()
   {
     $badge = Badge::get(self::BADGE_EXISTS_ID);
     $badge->data['id'] = null;
     $body = $badge->getResponseData();
+    $body['image'] = base64_encode(file_get_contents(__DIR__ . self::BADGE_IMAGE_PATH));
+
     $json = json_encode($body);
 
     $this->assertNotFalse($json);
@@ -30,7 +33,7 @@ class BadgeTest extends DatabaseTestCase
     $headers = $response->getHeaders();
     $location_header = $headers->get('Location');
 
-    $this->assertNotFalse($location_header, 'No Location: header specified');
+    $this->assertNotFalse($location_header, 'No Location: header returned');
 
     $location_value = $location_header->getFieldValue();
     $location_pattern = '#^' . WEB_SERVER_BASE_URL . '/badges/[0-9]+$#';
@@ -44,6 +47,23 @@ class BadgeTest extends DatabaseTestCase
     $response = $client->send();
 
     $this->assertTrue($response->isOk(), 'Could not access created badge at URL: ' . $url);
+
+    $body = $response->getBody();
+    $data = json_decode($body, true);
+    $this->assertNotNull($data, 'Body is not valid JSON');
+
+    $url = $data['image'];
+    $client = new \Zend\Http\Client();
+    $client->setUri($url);
+    $response = $client->send();
+    $this->assertTrue($response->isOk(), 'Could not access image at URL: ' . $url);
+
+    $headers = $response->getHeaders();
+    $content_type_header = $headers->get('Content-Type');
+    $this->assertNotFalse($content_type_header, 'No Content-Type: header returned');
+
+    $content_type_value = $content_type_header->getFieldValue();
+    $this->assertEquals('image/png', $content_type_value);
   }
 
   public function testCreateBadgeDB()
@@ -52,6 +72,10 @@ class BadgeTest extends DatabaseTestCase
 
     // Set ID to null so we trigger an INSERT
     $badge->data['id'] = null;
+
+    // Grab image data
+    $badge->data['image'] = file_get_contents(__DIR__ .  self::BADGE_IMAGE_PATH);
+
     $badge->save();
 
     $this->assertNotNull($badge->data['id']);

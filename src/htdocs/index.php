@@ -37,6 +37,8 @@ $app->post('/badges', function(Request $request) use ($app) {
     $app->abort(400, 'Request body not valid JSON');
   }
 
+  $data['image'] = base64_decode($data['image']);
+
   $badge = new Badge($data);
   $badge->save();
 
@@ -51,7 +53,28 @@ $app->get('/badges', function() use ($app) {
   return $app->json(Badge::getAllResponseData());
 });
 
-$app->get('/badges/{id}', function($id) use($app) {
+$app->get('/badges/images/{id}', function($id) use ($app) {
+  $badge = Badge::get($id);
+
+  if ($badge === null)
+  {
+    $app->abort(404, 'Badge not found');
+  }
+
+  if (empty($badge->data['image']))
+  {
+    $app->abort(404, 'Badge image not found');
+  }
+
+  $response = new Response();
+  $response->setContent($badge->data['image']);
+  $response->headers->set('Content-Type', 'image/png');
+
+  return $response;
+})
+->assert('id', '[0-9]+');
+
+$app->get('/badges/{id}', function($id) use ($app) {
   $badge = Badge::get($id);
 
   if ($badge === null)
