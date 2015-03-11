@@ -41,7 +41,7 @@ CREATE TABLE earned_badges
   badge_id INTEGER NOT NULL,
   verification_type TEXT NOT NULL,
   issued TEXT NOT NULL,
-  image TEXT,
+  image BLOB,
   evidence TEXT,
   expires TEXT,
   revoked TEXT,
