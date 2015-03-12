@@ -70,7 +70,7 @@ $app->get('/badges/images/{id}', function($id) use ($app) {
 
   return $response;
 })
-->assert('id', '[0-9]+');
+->assert('id', '[0-9][1-9]*');
 
 $app->get('/badges/{id}', function($id) use ($app) {
   $badge = Badge::get($id);
@@ -82,7 +82,7 @@ $app->get('/badges/{id}', function($id) use ($app) {
 
   return $app->json($badge->getResponseData());
 })
-->assert('id', '[0-9]+');
+->assert('id', '[1-9][0-9]*');
 
 $app->get('/assertions/{uid}', function($uid) use ($app) {
   $badge = EarnedBadge::get(EarnedBadge::getIdFromUid($uid));
