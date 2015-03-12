@@ -26,7 +26,8 @@ $app->get('/issuers/{id}', function($id) use ($app) {
   }
 
   return $app->json($issuer->getResponseData());
-});
+})
+->assert('id', '[1-9][0-9]*');
 
 $app->post('/badges', function(Request $request) use ($app) {
   $body = $request->getContent();
