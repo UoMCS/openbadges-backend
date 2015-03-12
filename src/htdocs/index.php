@@ -94,7 +94,7 @@ $app->get('/assertions/{uid}', function($uid) use ($app) {
   }
   elseif ($badge->isRevoked())
   {
-    return $app->json($badge->getResponseData(), 410);
+    return $app->json($badge->getResponseData(), EarnedBadge::REVOKED_RESPONSE_CODE);
   }
 
   return $app->json($badge->getResponseData());
