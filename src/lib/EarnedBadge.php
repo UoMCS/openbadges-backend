@@ -5,6 +5,7 @@ namespace UoMCS\OpenBadges\Backend;
 class EarnedBadge extends Base
 {
   const UID_LENGTH = 8;
+  const REVOKED_RESPONSE_CODE = 410;
 
   public $data = array(
     'id' => null,
