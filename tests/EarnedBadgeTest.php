@@ -17,7 +17,7 @@ class EarnedBadgeTest extends DatabaseTestCase
     $badge = new EarnedBadge($data);
     $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\EarnedBadge', $badge);
   }
-  
+
   public function testCreateEarnedBadgeDB()
   {
     $badge = EarnedBadge::get(self::EARNED_BADGE_EXISTS_ID);
@@ -38,6 +38,16 @@ class EarnedBadgeTest extends DatabaseTestCase
     $badge->revoke();
 
     $this->assertTrue($badge->isRevoked());
+
+    $response = $this->getEarnedBadgeUrlResponse(self::EARNED_BADGE_EXISTS_UID);
+    $this->assertEquals(EarnedBadge::REVOKED_RESPONSE_CODE, $response->getStatusCode());
+
+    $body = $response->getBody();
+    $data = json_decode($body, true);
+
+    $this->assertNotNull($data, 'Body is not valid JSON');
+    $this->assertArrayHasKey('revoked', $data);
+    $this->assertInternalType('boolean', $data['revoked']);
   }
 
   public function testResponseData()
