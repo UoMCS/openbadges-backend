@@ -37,8 +37,6 @@ $app->post('/badges', function(Request $request) use ($app) {
     $app->abort(400, 'Request body not valid JSON');
   }
 
-  $data['image'] = base64_decode($data['image']);
-
   $badge = new Badge($data);
   $badge->save();
 
@@ -67,7 +65,7 @@ $app->get('/badges/images/{id}', function($id) use ($app) {
   }
 
   $response = new Response();
-  $response->setContent($badge->data['image']);
+  $response->setContent(base64_decode($badge->data['image']));
   $response->headers->set('Content-Type', 'image/png');
 
   return $response;

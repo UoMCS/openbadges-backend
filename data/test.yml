@@ -11,6 +11,7 @@ available_badges:
     name: "Full attendance"
     description: "Full attendance award"
     criteria: "http://example.org"
+    image: iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAIAAAD/gAIDAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wMJDToLr7elogAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAw0lEQVR42u3bQQqAMAwAwUT6/y/HH1hBQkRnrwqWIT2INqsqdK8DASxYsGDBgoUAFqzp1uZ6ZteTH7w5ZHStqqJMlm0ICxYsWIIFCxYsWLAECxYsWLBgCRYsWLBgwRIsWLBgwfpf6T94kwULFixYsBDAggULFixYCGDBggULFiwEsGBNt7Z3vPDgb7at6frzjcmyDWHBggVLsGDBggULlmDBggULFizBggULFixYggULFixYH82xX5MFCxYsWIIFC9Z4J5oUEsHYuU7NAAAAAElFTkSuQmCC
   -
     id: 2
     issuer_id: 1
