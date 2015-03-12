@@ -143,6 +143,37 @@ class BadgeTest extends DatabaseTestCase
     $this->assertInternalType('string', $data['issuer']);
   }
 
+  private function getBadgeImageUrlResponse($id)
+  {
+    $url = WEB_SERVER_BASE_URL . "/badges/images/$id";
+
+    $client = new \Zend\Http\Client();
+    $client->setUri($url);
+    $response = $client->send();
+
+    return $response;
+  }
+
+  public function testBadgeImageExistsUrl()
+  {
+    $response = $this->getBadgeImageUrlResponse(self::BADGE_EXISTS_ID);
+
+    $this->assertTrue($response->isOk(), 'Accessing /badges/images/' . self::BADGE_EXISTS_ID . ' did not return 2xx code, returned: ' . $response->getStatusCode());
+
+    $headers = $response->getHeaders();
+    $content_type_header = $headers->get('Content-Type');
+    $this->assertNotFalse($content_type_header, 'No Content-Type header returned');
+
+    $content_type_value = $content_type_header->getFieldValue();
+    $this->assertEquals('image/png', $content_type_value);
+  }
+
+  public function testBadgeImageDoesNotExistUrl()
+  {
+    $response = $this->getBadgeImageUrlResponse(self::BADGE_DOES_NOT_EXIST_ID);
+    $this->assertTrue($response->isNotFound());
+  }
+
   private function getBadgeUrlResponse($id)
   {
     $url = WEB_SERVER_BASE_URL . "/badges/$id";
