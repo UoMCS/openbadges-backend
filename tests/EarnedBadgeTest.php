@@ -11,7 +11,7 @@ class EarnedBadgeTest extends DatabaseTestCase
   const EARNED_BADGE_DOES_NOT_EXIST_UID = 'zzzzzzzz';
 
   const EARNED_BADGE_COUNT = 3;
-  
+
   const EARNED_BADGE_EMAIL_EXISTS = 'test@example.org';
   const EARNED_BADGE_EMAIL_DOES_NOT_EXIST = 'test@example.net';
 
@@ -119,7 +119,38 @@ class EarnedBadgeTest extends DatabaseTestCase
 
     $this->assertNotNull($data, 'Body is not valid JSON');
 
+    $this->assertInternalType('array', $data);
 
+    if (count($data) >= 1)
+    {
+      foreach ($data as $item)
+      {
+        $this->assertArrayHasKey('uid', $item);
+        $this->assertInternalType('string', $item['uid']);
+
+        $this->assertArrayHasKey('recipient', $item);
+        $this->assertInternalType('array', $item['recipient']);
+        $this->assertArrayHasKey('type', $item['recipient']);
+        $this->assertInternalType('string', $item['recipient']['type']);
+        $this->assertArrayHasKey('hashed', $item['recipient']);
+        $this->assertInternalType('boolean', $item['recipient']['hashed']);
+        $this->assertArrayHasKey('identity', $item['recipient']);
+        $this->assertInternalType('string', $item['recipient']['identity']);
+
+        $this->assertArrayHasKey('badge', $item);
+        $this->assertInternalType('string', $item['badge']);
+
+        $this->assertArrayHasKey('verify', $item);
+        $this->assertInternalType('array', $item['verify']);
+        $this->assertArrayHasKey('type', $item['verify']);
+        $this->assertInternalType('string', $item['verify']['type']);
+        $this->assertArrayHasKey('url', $item['verify']);
+        $this->assertInternalType('string', $item['verify']['url']);
+
+        $this->assertArrayHasKey('issuedOn', $item);
+        $this->assertInternalType('string', $item['issuedOn']);
+      }
+    }
   }
 
   public function testEmailExistsDB()
