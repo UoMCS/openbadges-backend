@@ -10,6 +10,8 @@ class EarnedBadgeTest extends DatabaseTestCase
   const EARNED_BADGE_DOES_NOT_EXIST_ID = 99999;
   const EARNED_BADGE_COUNT = 3;
   const EARNED_BADGE_EARNER_ID = 1;
+  const EARNED_BADGE_EMAIL_EXISTS = 'test@example.org';
+  const EARNED_BADGE_EMAIL_DOES_NOT_EXIST = 'test@example.net';
 
   public function testEarnedBadgeConstructor()
   {
@@ -105,7 +107,7 @@ class EarnedBadgeTest extends DatabaseTestCase
 
   public function testEmailExistsUrl()
   {
-    $email = 'test@example.org';
+    $email = self::EARNED_BADGE_EMAIL_EXISTS;
     $response = $this->getEmailUrlResponse($email);
 
     $this->assertTrue($response->isOk(), 'Accessing /assertions/' . $email . ' did not return 2xx code, returned : ' . $response->getStatusCode());
@@ -120,14 +122,14 @@ class EarnedBadgeTest extends DatabaseTestCase
 
   public function testEmailExistsDB()
   {
-    $badges = EarnedBadge::getAllFromEmail('test@example.org');
+    $badges = EarnedBadge::getAllFromEmail(self::EARNED_BADGE_EMAIL_EXISTS);
     $this->assertInternalType('array', $badges);
     $this->assertContainsOnlyInstancesOf('UoMCS\\OpenBadges\\Backend\\EarnedBadge', $badges);
   }
 
   public function testEmailDoestNotExistDB()
   {
-    $badges = EarnedBadge::getAllFromEmail('test@example.net');
+    $badges = EarnedBadge::getAllFromEmail(self::EARNED_BADGE_EMAIL_DOES_NOT_EXIST);
     $this->assertNull($badges);
   }
 
