@@ -9,7 +9,15 @@ class EarnedBadgeTest extends DatabaseTestCase
   const EARNED_BADGE_DOES_NOT_EXIST_UID = 'zzzzzzzz';
   const EARNED_BADGE_DOES_NOT_EXIST_ID = 99999;
   const EARNED_BADGE_COUNT = 3;
+  const EARNED_BADGE_EARNER_ID = 1;
 
+  public function testEarnedBadgeConstructor()
+  {
+    $data = array();
+    $badge = new EarnedBadge($data);
+    $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\EarnedBadge', $badge);
+  }
+  
   public function testCreateEarnedBadgeDB()
   {
     $badge = EarnedBadge::get(self::EARNED_BADGE_EXISTS_ID);
