@@ -22,6 +22,45 @@ class EarnedBadgeTest extends DatabaseTestCase
     $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\EarnedBadge', $badge);
   }
 
+  public function testCreateEarnedBadgeUrl()
+  {
+    $body = array(
+      'recipient' => array(
+        'identity' => Utility::identityHash(self::EARNED_BADGE_EMAIL_EXISTS),
+      ),
+      'badge' => Badge::get(self::EARNED_BADGE_EXISTS_ID)->getUrl(),
+    );
+
+    $json = json_encode($body);
+    $this->assertNotFalse($json);
+
+    $url = WEB_SERVER_BASE_URL . '/assertions';
+    $client = new \Zend\Http\Client();
+    $client->setUri($url);
+    $client->setMethod('POST');
+    $client->setRawBody($json);
+    $client->setEncType('application/json');
+    $response = $client->send();
+
+    $this->assertEquals(201, $response->getStatusCode());
+
+    $headers = $response->getHeaders();
+    $location_header = $headers->get('Location');
+    $this->assertNotFalse($location_header, 'No Location: header returned');
+
+    $location_value = $location_header->getFieldValue();
+    $location_pattern = '#^' . WEB_SERVER_BASE_URL . '/assertions/[0-9a-zA-Z]+$#';
+    $this->assertEquals(1, preg_match($location_pattern, $location_value), 'Location header does not match regex');
+
+    // Check that created assertion exists by attempting to fetch it
+    $url = $location_value;
+    $client = new \Zend\Http\Client();
+    $client->setUri($url);
+    $response = $client->send();
+
+    $this->assertTrue($response->isOk(), 'Could not access created assertion at URL: ' . $url);
+  }
+
   public function testCreateEarnedBadgeDB()
   {
     $badge = EarnedBadge::get(self::EARNED_BADGE_EXISTS_ID);

@@ -83,6 +83,19 @@ class EarnedBadge extends Base
     $this->save();
   }
 
+  protected function setDefaultDataValues()
+  {
+    if ($this->data['verification_type'] === null)
+    {
+      $this->data['verification_type'] = DEFAULT_VERIFICATION_TYPE;
+    }
+
+    if ($this->data['issued'] === null)
+    {
+      $this->data['issued'] = date(TIMESTAMP_FORMAT);
+    }
+  }
+
   protected function insert()
   {
     do

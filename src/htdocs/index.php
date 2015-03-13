@@ -6,6 +6,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use UoMCS\OpenBadges\Backend\Badge;
 use UoMCS\OpenBadges\Backend\EarnedBadge;
+use UoMCS\OpenBadges\Backend\Earner;
 use UoMCS\OpenBadges\Backend\Issuer;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -84,6 +85,33 @@ $app->get('/badges/{id}', function($id) use ($app) {
   return $app->json($badge->getResponseData());
 })
 ->assert('id', '[1-9][0-9]*');
+
+$app->post('/assertions', function(Request $request) use ($app) {
+  $body = $request->getContent();
+  $data = json_decode($body, true);
+
+  if ($data === null)
+  {
+    $app->abort(400, 'Request body not valid JSON');
+  }
+
+  $earner_id = Earner::getIdFromIdentity($data['recipient']['identity']);
+  $badge_id = Badge::getIdFromUrl($data['badge']);
+
+  $assertion_data = array(
+    'earner_id' => $earner_id,
+    'badge_id' => $badge_id
+  );
+
+  $assertion = new EarnedBadge($assertion_data);
+  $assertion->save();
+
+  $headers = array(
+    'Location' => $assertion->getVerificationUrl()
+  );
+
+  return new Response('Assertion created', 201, $headers);
+});
 
 $app->get('/assertions/{uid}', function($uid) use ($app) {
   $badge = EarnedBadge::get(EarnedBadge::getIdFromUid($uid));

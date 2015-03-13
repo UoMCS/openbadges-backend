@@ -26,6 +26,20 @@ class Badge extends Base
   }
 
   /**
+   * Get badge ID from URL.
+   *
+   * @param string $url URL of the badge.
+   * @return int Badge ID.
+   */
+  public static function getIdFromUrl($url)
+  {
+    $base_url = WEB_SERVER_BASE_URL . '/badges/';
+    $id = (int) str_replace($base_url, '', $url);
+
+    return $id;
+  }
+
+  /**
    * Get the URL for this badge's email.
    *
    * @return string
