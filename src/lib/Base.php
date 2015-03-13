@@ -59,6 +59,18 @@ abstract class Base
   }
 
   /**
+   * Set any default values required by class.
+   *
+   * This function should be called before inserting a new record.
+   * No parameters or return values are used, but this function does
+   * edit data fields of the class.
+   */
+  protected function setDefaultDataValues()
+  {
+
+  }
+
+  /**
    * Insert a new row representing this object.
    *
    * This function should only be called by save or via parent::
@@ -68,6 +80,8 @@ abstract class Base
    */
   protected function insert()
   {
+    $this->setDefaultDataValues();
+
     $fields = $this->getEditableFields();
 
     $placeholders = array_map(function($field) { return ":$field"; }, $fields);

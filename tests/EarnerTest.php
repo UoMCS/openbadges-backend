@@ -12,8 +12,6 @@ class EarnerTest extends DatabaseTestCase
   {
     $earner = new Earner();
     $earner->data['identity'] = Utility::identityHash('test@example.net');
-    $earner->data['type'] = DEFAULT_EARNER_TYPE;
-    $earner->data['hashed'] = true;
 
     $earner->save();
     $this->assertNotNull($earner->data['id']);
