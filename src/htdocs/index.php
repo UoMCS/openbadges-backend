@@ -129,6 +129,27 @@ $app->get('/assertions/{uid}', function($uid) use ($app) {
 })
 ->assert('uid', '[0-9a-zA-Z]+');
 
+$app->get('/assertions/images/{uid}', function($uid) use ($app) {
+  $badge = EarnedBadge::get(EarnedBadge::getIdFromUid($uid));
+
+  if ($badge === null)
+  {
+    $app->abort(404, 'Assertion not found');
+  }
+
+  if (empty($badge->data['image']))
+  {
+    $app->abort(404, 'Assertion image not found');
+  }
+
+  $response = new Response();
+  $response->setContent(base64_decode($badge->data['image']));
+  $response->headers->set('Content-Type', 'image/png');
+
+  return $response;
+})
+->assert('uid', '[0-9a-zA-Z]+');
+
 $app->get('/assertions/{email}', function($email) use ($app) {
   // We assume if something follows /assertions and is not a UID,
   // it must be an email.

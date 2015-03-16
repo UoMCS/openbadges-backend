@@ -22,6 +22,36 @@ class EarnedBadgeTest extends DatabaseTestCase
     $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\EarnedBadge', $badge);
   }
 
+  private function getEarnedBadgeImageUrlResponse($uid)
+  {
+    $url = WEB_SERVER_BASE_URL . "/assertions/images/$uid";
+
+    $client = new \Zend\Http\Client();
+    $client->setUri($url);
+    $response = $client->send();
+
+    return $response;
+  }
+
+  public function testEarnedBadgeImageExistsUrl()
+  {
+    $response = $this->getEarnedBadgeImageUrlResponse(self::EARNED_BADGE_EXISTS_UID);
+    $this->assertTrue($response->isOk(), 'Accessing /assertions/images/' . self::EARNED_BADGE_EXISTS_UID . ' did not return 2xx code, returned: ' . $response->getStatusCode());
+
+    $headers = $response->getHeaders();
+    $content_type_header = $headers->get('Content-Type');
+    $this->assertNotFalse($content_type_header, 'No Content-Type header returned');
+
+    $content_type_value = $content_type_header->getFieldValue();
+    $this->assertEquals('image/png', $content_type_value);
+  }
+
+  public function testEarnedBadgeImageDoesNotExistUrl()
+  {
+    $response = $this->getEarnedBadgeImageUrlResponse(self::EARNED_BADGE_DOES_NOT_EXIST_UID);
+    $this->assertTrue($response->isNotFound());
+  }
+
   public function testCreateEarnedBadgeUrl()
   {
     $body = array(
