@@ -16,7 +16,7 @@ run this version or later.
 
 ### Composer
 
-Composer is required to install the dependencies listed in `src/composer.json`.
+Composer is required to install the dependencies listed in `composer.json`.
 
 ## Configuration
 
