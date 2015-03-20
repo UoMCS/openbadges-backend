@@ -9,7 +9,7 @@ class UtilityTest extends \PHPUnit_Framework_TestCase
   public function testConstructor()
   {
     $utility = new Utility();
-    $this->assertInstanceOf('UoMCS\OpenBadges\Backend\Utility', $utility);
+    $this->assertInstanceOf('OpenBadges\Backend\Utility', $utility);
   }
 
   public function testIdentityHashSalt()

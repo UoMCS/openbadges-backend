@@ -23,7 +23,7 @@ class EarnerTest extends DatabaseTestCase
     $earner_identity = Utility::identityHash('test@example.net');
 
     $earner_old = Earner::get(self::EARNER_EXISTS_ID);
-    $this->assertInstanceof('UoMCS\\OpenBadges\\Backend\\Earner', $earner_old);
+    $this->assertInstanceof('OpenBadges\\Backend\\Earner', $earner_old);
 
     $earner_old->data['identity'] = $earner_identity;
     $earner_old->save();
@@ -53,13 +53,13 @@ class EarnerTest extends DatabaseTestCase
     $this->assertInternalType('array', $earners);
     $this->assertCount(self::EARNER_COUNT, $earners);
 
-    $this->assertContainsOnlyInstancesOf('UoMCS\\OpenBadges\\Backend\\Earner', $earners);
+    $this->assertContainsOnlyInstancesOf('OpenBadges\\Backend\\Earner', $earners);
   }
 
   public function testEarnerExistsDB()
   {
     $earner = Earner::get(self::EARNER_EXISTS_ID);
-    $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\Earner', $earner);
+    $this->assertInstanceOf('OpenBadges\\Backend\\Earner', $earner);
   }
 
   public function testEarnerDoesNotExistDB()

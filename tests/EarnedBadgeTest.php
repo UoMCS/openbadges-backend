@@ -19,7 +19,7 @@ class EarnedBadgeTest extends DatabaseTestCase
   {
     $data = array();
     $badge = new EarnedBadge($data);
-    $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\EarnedBadge', $badge);
+    $this->assertInstanceOf('OpenBadges\\Backend\\EarnedBadge', $badge);
   }
 
   private function getEarnedBadgeImageUrlResponse($uid)
@@ -228,7 +228,7 @@ class EarnedBadgeTest extends DatabaseTestCase
   {
     $badges = EarnedBadge::getAllFromEmail(self::EARNED_BADGE_EMAIL_EXISTS);
     $this->assertInternalType('array', $badges);
-    $this->assertContainsOnlyInstancesOf('UoMCS\\OpenBadges\\Backend\\EarnedBadge', $badges);
+    $this->assertContainsOnlyInstancesOf('OpenBadges\\Backend\\EarnedBadge', $badges);
   }
 
   public function testEmailDoestNotExistDB()
@@ -240,7 +240,7 @@ class EarnedBadgeTest extends DatabaseTestCase
   public function testEarnedBadgeExistsDB()
   {
     $badge = EarnedBadge::get(self::EARNED_BADGE_EXISTS_ID);
-    $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\EarnedBadge', $badge);
+    $this->assertInstanceOf('OpenBadges\\Backend\\EarnedBadge', $badge);
     $this->assertEquals(self::EARNED_BADGE_EXISTS_ID, $badge->data['id']);
   }
 
@@ -256,7 +256,7 @@ class EarnedBadgeTest extends DatabaseTestCase
     $this->assertInternalType('array', $badges);
     $this->assertCount(self::EARNED_BADGE_COUNT, $badges);
 
-    $this->assertContainsOnlyInstancesOf('UoMCS\\OpenBadges\\Backend\\EarnedBadge', $badges);
+    $this->assertContainsOnlyInstancesOf('OpenBadges\\Backend\\EarnedBadge', $badges);
   }
 
   private function getEarnedBadgeUrlResponse($uid)

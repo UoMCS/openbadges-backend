@@ -25,7 +25,7 @@ class IssuerTest extends DatabaseTestCase
 
     $issuer_old = Issuer::get(self::ISSUER_EXISTS_ID);
 
-    $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\Issuer', $issuer_old, 'Could not fetch issuer');
+    $this->assertInstanceOf('OpenBadges\\Backend\\Issuer', $issuer_old, 'Could not fetch issuer');
 
     $issuer_old->data['name'] = $issuer_name;
 
@@ -39,7 +39,7 @@ class IssuerTest extends DatabaseTestCase
   public function testIssuerExistsDB()
   {
     $issuer = Issuer::get(self::ISSUER_EXISTS_ID);
-    $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\Issuer', $issuer, 'Could not fetch issuer');
+    $this->assertInstanceOf('OpenBadges\\Backend\\Issuer', $issuer, 'Could not fetch issuer');
   }
 
   public function testIssuerDoesNotExistDB()

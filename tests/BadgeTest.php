@@ -88,7 +88,7 @@ class BadgeTest extends DatabaseTestCase
     $badge_description = 'New badge description';
 
     $badge_old = Badge::get(self::BADGE_EXISTS_ID);
-    $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\Badge', $badge_old);
+    $this->assertInstanceOf('OpenBadges\\Backend\\Badge', $badge_old);
 
     $badge_old->data['name'] = $badge_name;
     $badge_old->data['description'] = $badge_description;
@@ -105,13 +105,13 @@ class BadgeTest extends DatabaseTestCase
     $this->assertInternalType('array', $badges);
     $this->assertCount(self::BADGE_COUNT, $badges);
 
-    $this->assertContainsOnlyInstancesOf('UoMCS\\OpenBadges\\Backend\\Badge', $badges);
+    $this->assertContainsOnlyInstancesOf('OpenBadges\\Backend\\Badge', $badges);
   }
 
   public function testBadgeExistsDB()
   {
     $badge = Badge::get(self::BADGE_EXISTS_ID);
-    $this->assertInstanceOf('UoMCS\\OpenBadges\\Backend\\Badge', $badge, 'Could not fetch badge');
+    $this->assertInstanceOf('OpenBadges\\Backend\\Badge', $badge, 'Could not fetch badge');
     $this->assertEquals(self::BADGE_EXISTS_ID, $badge->data['id']);
   }
 
