@@ -72,8 +72,6 @@ class EarnedBadgeTest extends DatabaseTestCase
     $client->setEncType('application/json');
     $response = $client->send();
 
-    print_r($response->getBody());
-
     $this->assertEquals(201, $response->getStatusCode());
 
     $headers = $response->getHeaders();
