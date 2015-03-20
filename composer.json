@@ -16,7 +16,7 @@
     }
   ],
   "autoload": {
-    "psr-0": { "OpenBadges": "src/" }
+    "psr-4": { "OpenBadges\\": "src/" }
   },
   "license": "MIT",
   "require": {
