@@ -1,6 +1,8 @@
 <?php
 
-namespace UoMCS\OpenBadges\Backend;
+namespace OpenBadges\Backend;
+
+use PNG\Image;
 
 class EarnedBadge extends Base
 {
@@ -93,6 +95,19 @@ class EarnedBadge extends Base
     if ($this->data['issued'] === null)
     {
       $this->data['issued'] = date(TIMESTAMP_FORMAT);
+    }
+
+    if ($this->data['image'] === null)
+    {
+      $badge = Badge::get($this->data['badge_id']);
+      $response_data = $this->getResponseData();
+      $json = json_encode($response_data);
+
+      $png = new Image();
+      $png->setContents(base64_decode($badge->data['image']));
+      $png->addITXtChunk('openbadges', 'json', $json);
+
+      $this->data['image'] = base64_encode($png->getContents());
     }
   }
 

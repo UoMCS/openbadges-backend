@@ -1,8 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../src/config.php';
-require_once __DIR__ . '/../src/autoload.php';
-require_once __DIR__ . '/../src/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 date_default_timezone_set('Europe/London');
 
@@ -46,6 +45,6 @@ register_shutdown_function(function() use ($httpd_pid) {
 });
 
 // Create and populate database
-$db = \UoMCS\OpenBadges\Backend\SQLite::getInstance();
+$db = \OpenBadges\Backend\SQLite::getInstance();
 $schema = file_get_contents(__DIR__ . '/../data/schemas.sql');
 $db->exec($schema);

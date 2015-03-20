@@ -1,13 +1,12 @@
 <?php
 
 require_once __DIR__ . '/../config.php';
-require_once __DIR__ . '/../autoload.php';
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use UoMCS\OpenBadges\Backend\Badge;
-use UoMCS\OpenBadges\Backend\EarnedBadge;
-use UoMCS\OpenBadges\Backend\Earner;
-use UoMCS\OpenBadges\Backend\Issuer;
+use OpenBadges\Backend\Badge;
+use OpenBadges\Backend\EarnedBadge;
+use OpenBadges\Backend\Earner;
+use OpenBadges\Backend\Issuer;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -1,6 +1,6 @@
 <?php
 
-namespace UoMCS\OpenBadges\Backend;
+namespace OpenBadges\Backend;
 
 class UtilityTest extends \PHPUnit_Framework_TestCase
 {

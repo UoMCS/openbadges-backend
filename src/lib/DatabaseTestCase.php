@@ -1,6 +1,6 @@
 <?php
 
-namespace UoMCS\OpenBadges\Backend;
+namespace OpenBadges\Backend;
 
 abstract class DatabaseTestCase extends \PHPUnit_Extensions_Database_TestCase
 {

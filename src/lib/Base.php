@@ -1,6 +1,6 @@
 <?php
 
-namespace UoMCS\OpenBadges\Backend;
+namespace OpenBadges\Backend;
 
 /**
  * Base class for all concrete entity classes to inherit from.

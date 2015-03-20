@@ -1,6 +1,6 @@
 <?php
 
-namespace UoMCS\OpenBadges\Backend;
+namespace OpenBadges\Backend;
 
 /**
  * Wrapper class for SQLite database connection.
