@@ -9,10 +9,6 @@
     {
       "type": "vcs",
       "url": "https://github.com/UoMCS/openbadges-backend"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/UoMCS/php-png"
     }
   ],
   "autoload": {
