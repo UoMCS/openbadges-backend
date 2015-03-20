@@ -1,6 +1,5 @@
-src/vendor/
-src/composer.phar
-src/composer.lock
 src/config.php
 data/*.db
 data/data.sql
+vendor/
+composer.lock
