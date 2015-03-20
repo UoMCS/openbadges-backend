@@ -1,12 +1,27 @@
 {
+  "name": "uomcs/openbadges-backend",
+  "description": "Backend code and schema for OpenBadges",
   "repositories": [
     {
       "type": "composer",
       "url": "https://packages.zendframework.com/"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/UoMCS/openbadges-backend"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/UoMCS/php-png"
     }
   ],
+  "autoload": {
+    "psr-0": { "OpenBadges": "src/" }
+  },
+  "license": "MIT",
   "require": {
     "zendframework/zend-http": "2.*",
-    "silex/silex": "~1.2"
+    "silex/silex": "~1.2",
+    "uomcs/php-png": "dev-master"
   }
 }
