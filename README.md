@@ -25,3 +25,11 @@ Automatically running a development web server is based on the following blog
 post:
 
 http://tech.vg.no/2013/07/19/using-phps-built-in-web-server-in-your-test-suites/
+
+## Authentication
+
+There is no authentication built into Open Badges - as a RESTful API it assumes
+that you will add an authentication layer on top, for example using Basic
+or Digest Authentication. Both can be enabled without any changes to the code
+as the authentication process is handled by the web server before the request
+is passed on to Open Badges.
