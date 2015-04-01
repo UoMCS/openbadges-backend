@@ -39,3 +39,22 @@ badge.
 
 Note that creating an assertion requires that the relevant badge already exists,
 but an earner record will be automatically created if necessary.
+
+## Fetching a single assertion
+
+*URL:* `/assertions/<uid>`  
+*Method:* GET
+
+*Response:* JSON representation of an assertion, as per the specification.
+
+## Fetching all assertions for an earner
+
+*URL:* `/assertions/<email>`  
+*Method:* GET
+
+*Response:* JSON representation of an array of assertions, as per the
+specification.
+
+Note that an earner record can only exist if the earner has one or more
+assertions, so this endpoint will always return either a 404 or at least one
+assertion.
