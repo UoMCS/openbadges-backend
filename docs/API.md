@@ -2,6 +2,12 @@
 
 This document details the various endpoints for the Open Badges backend API.
 
+## Authentication
+
+The API does not implement any form of authentication, instead this is left to
+the web server. However, both Basic and Digest Authentication should work with
+no changes required to the API source.
+
 ## Response codes
 
 The following response codes are used by the API:
